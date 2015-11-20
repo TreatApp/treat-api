@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using Treat.Model;
@@ -11,7 +12,7 @@ namespace Treat.Repository
         {
             using (var db = new Database())
             {
-                var events = from e in db.Events
+                var events = from e in GetEvents(db)
                     where e.Start > DateTime.Now
                     select e;
 
@@ -23,8 +24,16 @@ namespace Treat.Repository
         {
             using (var db = new Database())
             {
-                return db.Events.FirstOrDefault(e => e.Id == id);
+                return GetEvents(db).FirstOrDefault(e => e.Id == id);
             }
+        }
+
+        private IQueryable<Event> GetEvents(Database db)
+        {
+            return db.Events
+                .Include(e => e.User)
+                .Include(e => e.Location)
+                .Include(e => e.Categories);
         }
 
         public void CreateEvent(Event @event)
