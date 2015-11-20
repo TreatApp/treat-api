@@ -8,14 +8,6 @@ namespace Treat.Model
     [Table("User")]
     public class User
     {
-        public User()
-        {
-            Events = new HashSet<Event>();
-            EventLogs = new HashSet<EventLog>();
-            EventRatings = new HashSet<EventRating>();
-            EventRequests = new HashSet<EventRequest>();
-        }
-
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
@@ -39,13 +31,5 @@ namespace Treat.Model
         public string Description { get; set; }
 
         public DateTime Created { get; set; }
-
-        public virtual ICollection<Event> Events { get; set; }
-
-        public virtual ICollection<EventLog> EventLogs { get; set; }
-
-        public virtual ICollection<EventRating> EventRatings { get; set; }
-
-        public virtual ICollection<EventRequest> EventRequests { get; set; }
     }
 }
