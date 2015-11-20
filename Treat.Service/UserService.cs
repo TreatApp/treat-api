@@ -1,22 +1,30 @@
 using Treat.Model;
+using Treat.Repository;
 
 namespace Treat.Service
 {
     public class UserService : IUserService
     {
-        public User GetUser()
+        private readonly IUserRepository _userRepository;
+
+        public UserService()
         {
-            throw new System.NotImplementedException();
+            _userRepository = new UserRepository();
+        }
+
+        public User GetUser(long id)
+        {
+            return _userRepository.GetUser(id);
         }
 
         public void CreateUser(User user)
         {
-            throw new System.NotImplementedException();
+            _userRepository.CreateUser(user);            
         }
 
         public void UpdateUser(User user)
         {
-            throw new System.NotImplementedException();
+            _userRepository.UpdateUser(user);            
         }
     }
 }

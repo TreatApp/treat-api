@@ -1,8 +1,8 @@
 using Treat.Model;
 
-namespace Treat.Service
+namespace Treat.Repository
 {
-    public interface IUserService
+    public interface IUserRepository
     {
         User GetUser(long id);
         void CreateUser(User user);
