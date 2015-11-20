@@ -41,6 +41,8 @@
   <ItemGroup>
     <Compile Include="EventService.cs" />
     <Compile Include="IEventService.cs" />
+    <Compile Include="IProfileService.cs" />
+    <Compile Include="ProfileService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

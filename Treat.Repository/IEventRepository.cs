@@ -7,5 +7,6 @@ namespace Treat.Repository
     public interface IEventRepository
     {
         IList<Event> GetEvents();
+        void CreateEvent(Event @event);
     }
 }

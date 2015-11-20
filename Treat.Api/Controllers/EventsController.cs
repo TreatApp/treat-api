@@ -12,7 +12,7 @@ namespace Treat.Api.Controllers
 
         public EventsController()
         {
-            _eventService = new EventService(new EventRepository());
+            _eventService = new EventService();
         }
 
         // GET api/events
