@@ -18,24 +18,16 @@ namespace Treat.Service.Tests
         }
 
         [TestMethod]
+        public void Should_get_events()
+        {
+            var events = _eventService.GetEvents();
+            Assert.IsNotNull(events);
+        }
+
+        [TestMethod]
         public void Should_create_event()
         {
-            try
-            {
-                _eventService.CreateEvent(GetDummyEvent());                
-            }
-            catch (DbEntityValidationException dbEx)
-            {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
-                {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        Trace.TraceInformation("Property: {0} Error: {1}",
-                                                validationError.PropertyName,
-                                                validationError.ErrorMessage);
-                    }
-                }
-            }
+            _eventService.CreateEvent(GetDummyEvent());                
         }
 
         private static Event GetDummyEvent()
