@@ -10,10 +10,8 @@ namespace Treat.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
-        [ForeignKey("Event")]
         public long EventId { get; set; }
 
-        [ForeignKey("User")]        
         public long UserId { get; set; }
         
         public EventLogType Type { get; set; }

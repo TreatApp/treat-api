@@ -40,16 +40,16 @@ namespace Treat.Model
         
         public DateTime Created { get; set; }
 
-        public User User { get; set; }
+        public virtual User User { get; set; }
 
-        public Location Location { get; set; }
+        public virtual Location Location { get; set; }
 
-        public ICollection<Category> Categories { get; set; }
+        public virtual ICollection<Category> Categories { get; set; }
 
-        public ICollection<EventLog> EventLogs { get; set; }
+        public virtual ICollection<EventLog> EventLogs { get; set; }
 
-        public ICollection<EventRating> EventRatings { get; set; }
+        public virtual ICollection<EventRating> EventRatings { get; set; }
 
-        public ICollection<EventRequest> EventRequests { get; set; }
+        public virtual ICollection<EventRequest> EventRequests { get; set; }
     }
 }

@@ -2,7 +2,7 @@ using Treat.Model;
 
 namespace Treat.Service
 {
-    public class ProfileService : IProfileService
+    public class UserService : IUserService
     {
         public User GetUser()
         {

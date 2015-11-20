@@ -1,9 +1,8 @@
-using System.Collections.Generic;
 using Treat.Model;
 
 namespace Treat.Service
 {
-    public interface IProfileService
+    public interface IUserService
     {
         User GetUser();
         void CreateUser(User user);

@@ -22,14 +22,50 @@ namespace Treat.Repository
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            modelBuilder.Entity<Event>()
-                .HasMany(e => e.EventLogs);
+            modelBuilder.Entity<Category>()
+               .HasMany(e => e.Events)
+               .WithMany(e => e.Categories)
+               .Map(m => m.ToTable("EventCategory").MapLeftKey("CategoryId").MapRightKey("EventId"));
 
             modelBuilder.Entity<Event>()
-                .HasMany(e => e.EventRatings);
+                .HasMany(e => e.EventLogs)
+                .WithRequired(e => e.Event)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Event>()
-                .HasMany(e => e.EventRequests);
+                .HasMany(e => e.EventRatings)
+                .WithRequired(e => e.Event)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Event>()
+                .HasMany(e => e.EventRequests)
+                .WithRequired(e => e.Event)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Location>()
+                .HasMany(e => e.Events)
+                .WithRequired(e => e.Location)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Events)
+                .WithRequired(e => e.User)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.EventLogs)
+                .WithRequired(e => e.User)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.EventRatings)
+                .WithRequired(e => e.User)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.EventRequests)
+                .WithRequired(e => e.User)
+                .WillCascadeOnDelete(false);
         }
     }
 }

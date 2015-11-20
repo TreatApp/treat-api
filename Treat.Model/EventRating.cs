@@ -7,13 +7,13 @@ namespace Treat.Model
     [Table("EventRating")]
     public class EventRating
     {
+        [Key]
         [Column(Order = 0)]
-        [Key, ForeignKey("Event")]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long EventId { get; set; }
 
+        [Key]
         [Column(Order = 1)]
-        [Key, ForeignKey("User")]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long UserId { get; set; }
         
