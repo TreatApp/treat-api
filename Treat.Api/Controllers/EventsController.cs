@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using Treat.Model;
-using Treat.Repository;
 using Treat.Service;
 
 namespace Treat.Api.Controllers
@@ -15,31 +14,29 @@ namespace Treat.Api.Controllers
             _eventService = new EventService();
         }
 
-        // GET api/events
         public IEnumerable<Event> Get()
         {
             return _eventService.GetEvents();
         }
 
-        // GET api/events/5
-        public string Get(int id)
+        public Event Get(int id)
         {
-            return "value";
+            return _eventService.GetEvent(id);
         }
 
-        // POST api/events
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Event @event)
         {
+            _eventService.CreateEvent(@event);
         }
 
-        // PUT api/events/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]Event @event)
         {
+            _eventService.UpdateEvent(@event);
         }
 
-        // DELETE api/events/5
         public void Delete(int id)
         {
+            _eventService.DeleteEvent(id);
         }
     }
 }
