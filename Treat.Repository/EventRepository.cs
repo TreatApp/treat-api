@@ -72,6 +72,14 @@ namespace Treat.Repository
             }
         }
 
+        public IList<Category> GetCategories()
+        {
+            using (var db = new Database())
+            {
+                return db.Categories.ToList();
+            }
+        }
+
         public void UpdateEvent(Event @event)
         {
             using (var db = new Database())

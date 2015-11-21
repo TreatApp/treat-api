@@ -13,5 +13,6 @@ namespace Treat.Service
         void CreateEventLog(EventLog eventLog);
         void CreateEventRequest(EventRequest eventRequest);
         void CreateEventRating(EventRating eventRating);
+        IList<Category> GetCategories();
     }
 }

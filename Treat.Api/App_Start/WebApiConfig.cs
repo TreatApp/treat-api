@@ -1,6 +1,8 @@
 ﻿using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Treat.Api
 {
@@ -19,7 +21,10 @@ namespace Treat.Api
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+            var formatter = config.Formatters.JsonFormatter;
+            formatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+            formatter.SerializerSettings.Formatting = Formatting.Indented;
+            formatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
     }
 }

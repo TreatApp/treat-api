@@ -52,5 +52,10 @@ namespace Treat.Service
         {
             _eventRepository.CreateEventRating(eventRating);
         }
+
+        public IList<Category> GetCategories()
+        {
+            return _eventRepository.GetCategories();
+        }
     }
 }
