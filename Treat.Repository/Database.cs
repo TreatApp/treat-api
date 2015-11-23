@@ -1,6 +1,9 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using Treat.Model;
+using EventLog = Treat.Model.EventLog;
 
 namespace Treat.Repository
 {
@@ -46,6 +49,25 @@ namespace Treat.Repository
                 .HasMany(e => e.Events)
                 .WithRequired(e => e.Location)
                 .WillCascadeOnDelete(false);
+        }
+
+        public override int SaveChanges()
+        {
+            try
+            {
+                return base.SaveChanges();                
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var validationErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Trace.WriteLine(string.Format("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage));
+                    }
+                }
+                throw;
+            }
         }
     }
 }

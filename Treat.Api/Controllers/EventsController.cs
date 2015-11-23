@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
 using Treat.Model;
 using Treat.Service;
@@ -26,6 +27,10 @@ namespace Treat.Api.Controllers
 
         public void Post([FromBody]Event @event)
         {
+            @event.UserId = 7;
+            @event.Created = DateTime.Now;
+            @event.Location.Country = "Sweden";
+
             _eventService.CreateEvent(@event);
         }
 
