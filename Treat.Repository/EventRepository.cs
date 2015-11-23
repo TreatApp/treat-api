@@ -40,6 +40,14 @@ namespace Treat.Repository
         {
             using (var db = new Database())
             {
+                var categoryIds = @event.Categories.Select(c => c.Id).ToList();
+
+                @event.Categories.Clear();
+                foreach (var category in db.Categories.Where(c => categoryIds.Contains(c.Id)))
+                {
+                    @event.Categories.Add(category);
+                }
+
                 db.Events.Add(@event);
                 db.SaveChanges();
             }
