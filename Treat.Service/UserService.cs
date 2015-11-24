@@ -1,4 +1,6 @@
 using System;
+using System.Diagnostics;
+using System.Threading;
 using Treat.Model;
 using Treat.Repository;
 
@@ -13,9 +15,11 @@ namespace Treat.Service
             _userRepository = new UserRepository();
         }
 
-        public User GetUser(long id)
+        public User GetUser(long? id = null)
         {
-            return _userRepository.GetUser(id);
+            return id == null
+                ? _userRepository.GetUserByExternalId(Thread.CurrentPrincipal.Identity.Name)
+                : _userRepository.GetUser(id.Value);
         }
 
         public void CreateUser(User user)

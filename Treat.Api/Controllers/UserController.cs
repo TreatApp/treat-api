@@ -6,16 +6,16 @@ using Treat.Service;
 namespace Treat.Api.Controllers
 {
     [BasicAuthenticationFilter]
-    public class UsersController : ApiController
+    public class UserController : ApiController
     {
         private readonly IUserService _userService;
 
-        public UsersController()
+        public UserController()
         {
             _userService = new UserService();
         }
 
-        public User Get(int id)
+        public User Get(int? id = null)
         {
             return _userService.GetUser(id);
         }

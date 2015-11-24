@@ -29,10 +29,6 @@ namespace Treat.Api.Controllers
 
         public void Post([FromBody]Event @event)
         {
-            @event.UserId = 7;
-            @event.Created = DateTime.Now;
-            @event.Location.Country = "Sweden";
-
             _eventService.CreateEvent(@event);
         }
 
