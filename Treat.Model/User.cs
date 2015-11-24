@@ -14,6 +14,7 @@ namespace Treat.Model
         public long Id { get; set; }
 
         [Required]
+        [DataMember]
         [StringLength(50)]
         public string ExternalId { get; set; }
 
@@ -32,7 +33,6 @@ namespace Treat.Model
         [StringLength(100)]
         public string LastName { get; set; }
 
-        [Required]
         [DataMember]
         public string Description { get; set; }
 
