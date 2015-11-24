@@ -49,6 +49,11 @@ namespace Treat.Repository
                 .HasMany(e => e.Events)
                 .WithRequired(e => e.Location)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.UserRatings)
+                .WithRequired(u => u.User)
+                .WillCascadeOnDelete(false);
         }
 
         public override int SaveChanges()

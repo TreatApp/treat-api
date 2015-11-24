@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
@@ -9,6 +11,11 @@ namespace Treat.Model
     [Table("User")]
     public class User
     {
+        public User()
+        {
+            UserRatings = new HashSet<UserRating>();
+        }
+
         [DataMember]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
@@ -38,5 +45,7 @@ namespace Treat.Model
 
         [DataMember]
         public DateTime Created { get; set; }
+
+        public virtual ICollection<UserRating> UserRatings { get; set; }
     }
 }

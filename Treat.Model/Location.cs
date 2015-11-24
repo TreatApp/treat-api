@@ -32,6 +32,14 @@ namespace Treat.Model
         [DataMember]
         [StringLength(50)]
         public string Country { get; set; }
+        
+        [Required]
+        [DataMember]
+        public decimal Latitude { get; set; }
+
+        [Required]
+        [DataMember]
+        public decimal Longitude { get; set; }
 
         public virtual ICollection<Event> Events { get; set; }
 
