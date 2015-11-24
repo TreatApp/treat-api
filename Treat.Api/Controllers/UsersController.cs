@@ -1,9 +1,11 @@
 ﻿using System.Web.Http;
+using Treat.Api.Authentication;
 using Treat.Model;
 using Treat.Service;
 
 namespace Treat.Api.Controllers
 {
+    [BasicAuthenticationFilter]
     public class UsersController : ApiController
     {
         private readonly IUserService _userService;

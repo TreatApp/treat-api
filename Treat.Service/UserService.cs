@@ -1,3 +1,4 @@
+using System;
 using Treat.Model;
 using Treat.Repository;
 
@@ -25,6 +26,17 @@ namespace Treat.Service
         public void UpdateUser(User user)
         {
             _userRepository.UpdateUser(user);            
+        }
+
+        public void Login(User user)
+        {
+            var existingUser = _userRepository.GetUserByExternalId(user.ExternalId);
+
+            if (existingUser == null)
+            {
+                user.Created = DateTime.Now;
+                _userRepository.CreateUser(user);                
+            }
         }
     }
 }

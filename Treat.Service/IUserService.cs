@@ -7,5 +7,6 @@ namespace Treat.Service
         User GetUser(long id);
         void CreateUser(User user);
         void UpdateUser(User user);
+        void Login(User user);
     }
 }

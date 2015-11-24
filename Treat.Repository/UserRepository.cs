@@ -13,6 +13,14 @@ namespace Treat.Repository
             }
         }
 
+        public User GetUserByExternalId(string externalId)
+        {
+            using (var db = new Database())
+            {
+                return db.Users.FirstOrDefault(u => u.ExternalId == externalId);
+            }
+        }
+
         public void CreateUser(User user)
         {
             using (var db = new Database())
@@ -29,9 +37,6 @@ namespace Treat.Repository
                 var result = db.Users.FirstOrDefault(u => u.Id == user.Id);
                 if (result != null)
                 {
-                    result.ExternalId = user.ExternalId;
-                    result.FirstName = user.FirstName;
-                    result.LastName = user.LastName;
                     result.Email = user.Email;
                     result.Description = user.Description;
                     db.SaveChanges();
