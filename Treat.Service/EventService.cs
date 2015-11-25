@@ -46,22 +46,41 @@ namespace Treat.Service
 
         public void CreateEventLog(EventLog eventLog)
         {
+            eventLog.Created = DateTime.Now;
+            eventLog.UserId = UserIdentity.Current.User.Id;
+
             _eventRepository.CreateEventLog(eventLog);
         }
 
         public void CreateEventRequest(EventRequest eventRequest)
         {
+            eventRequest.Created = DateTime.Now;
+            eventRequest.UserId = UserIdentity.Current.User.Id;
+
             _eventRepository.CreateEventRequest(eventRequest);
         }
 
         public void CreateEventRating(EventRating eventRating)
         {
+            eventRating.Created = DateTime.Now;
+            eventRating.UserId = UserIdentity.Current.User.Id;
+            
             _eventRepository.CreateEventRating(eventRating);
         }
 
         public IList<Category> GetCategories()
         {
             return _eventRepository.GetCategories();
+        }
+
+        public IList<EventLog> GetEventLogs(int eventId)
+        {
+            return _eventRepository.GetEventLogs(eventId);
+        }
+
+        public IList<EventRequest> GetEventRequests(int eventId)
+        {
+            return _eventRepository.GetEventRequests(eventId);
         }
     }
 }

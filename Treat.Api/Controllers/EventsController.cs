@@ -7,7 +7,6 @@ using Treat.Service;
 
 namespace Treat.Api.Controllers
 {
-    [BasicAuthenticationFilter]
     public class EventsController : ApiController
     {
         private readonly IEventService _eventService;
@@ -27,16 +26,19 @@ namespace Treat.Api.Controllers
             return _eventService.GetEvent(id);
         }
 
+        [BasicAuthenticationFilter]
         public void Post([FromBody]Event @event)
         {
             _eventService.CreateEvent(@event);
         }
 
+        [BasicAuthenticationFilter]
         public void Put(int id, [FromBody]Event @event)
         {
             _eventService.UpdateEvent(@event);
         }
 
+        [BasicAuthenticationFilter]
         public void Delete(int id)
         {
             _eventService.DeleteEvent(id);

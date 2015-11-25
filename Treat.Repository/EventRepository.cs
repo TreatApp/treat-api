@@ -88,6 +88,22 @@ namespace Treat.Repository
             }
         }
 
+        public IList<EventLog> GetEventLogs(int eventId)
+        {
+            using (var db = new Database())
+            {
+                return db.EventLogs.Include(e => e.User).Where(e => e.EventId == eventId).ToList();
+            }
+        }
+
+        public IList<EventRequest> GetEventRequests(int eventId)
+        {
+            using (var db = new Database())
+            {
+                return db.EventRequests.Include(e => e.User).Where(e => e.EventId == eventId).ToList();
+            }
+        }
+
         public void UpdateEvent(Event @event)
         {
             using (var db = new Database())
