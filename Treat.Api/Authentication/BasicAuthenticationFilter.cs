@@ -6,12 +6,21 @@ using System.Text;
 using System.Threading;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
+using Treat.Model;
+using Treat.Service;
 
 namespace Treat.Api.Authentication
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class BasicAuthenticationFilter : AuthorizationFilterAttribute
     {
+        private readonly IUserService _userService;
+
+        public BasicAuthenticationFilter()
+        {
+            _userService = new UserService();
+        }
+
         public override void OnAuthorization(HttpActionContext actionContext)
         {
             var identity = ParseAuthorizationHeader(actionContext);
@@ -21,24 +30,21 @@ namespace Treat.Api.Authentication
                 return;
             }
 
-            if (!OnAuthorizeUser(identity.Name, identity.Password, actionContext))
+            var user = _userService.GetUserByExternalId(identity.ExternalId);
+            if (user == null)
             {
                 Challenge(actionContext);
                 return;
             }
 
+            identity.User = user;
             var principal = new GenericPrincipal(identity, null);
             Thread.CurrentPrincipal = principal;
 
             base.OnAuthorization(actionContext);
         }
 
-        protected virtual bool OnAuthorizeUser(string username, string password, HttpActionContext actionContext)
-        {
-            return !string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password);
-        }
-
-        protected virtual BasicAuthenticationIdentity ParseAuthorizationHeader(HttpActionContext actionContext)
+        private UserIdentity ParseAuthorizationHeader(HttpActionContext actionContext)
         {
             string authHeader = null;
             var auth = actionContext.Request.Headers.Authorization;
@@ -54,7 +60,7 @@ namespace Treat.Api.Authentication
             if (tokens.Length < 2)
                 return null;
 
-            return new BasicAuthenticationIdentity(tokens[0], tokens[1]);
+            return new UserIdentity(tokens[0]);
         }
 
         private static void Challenge(HttpActionContext actionContext)

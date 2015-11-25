@@ -18,8 +18,13 @@ namespace Treat.Service
         public User GetUser(long? id = null)
         {
             return id == null
-                ? _userRepository.GetUserByExternalId(Thread.CurrentPrincipal.Identity.Name)
+                ? UserIdentity.Current.User
                 : _userRepository.GetUser(id.Value);
+        }
+
+        public User GetUserByExternalId(string externalId)
+        {
+            return _userRepository.GetUserByExternalId(externalId);
         }
 
         public void CreateUser(User user)

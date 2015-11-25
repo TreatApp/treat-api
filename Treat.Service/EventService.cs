@@ -8,12 +8,10 @@ namespace Treat.Service
 {
     public class EventService : IEventService
     {
-        private readonly IUserRepository _userRepository;
         private readonly IEventRepository _eventRepository;
 
         public EventService()
         {
-            _userRepository = new UserRepository();
             _eventRepository = new EventRepository();
         }
 
@@ -29,10 +27,8 @@ namespace Treat.Service
 
         public void CreateEvent(Event @event)
         {
-            var existingUser = _userRepository.GetUserByExternalId(Thread.CurrentPrincipal.Identity.Name);
-
             @event.Created = DateTime.Now;
-            @event.UserId = existingUser.Id;
+            @event.UserId = UserIdentity.Current.User.Id;
             @event.Location.Country = "Sweden";
 
             _eventRepository.CreateEvent(@event);
