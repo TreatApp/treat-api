@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="Treat.Azure" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="4" osVersion="*" schemaVersion="2015-04.2.6">
+  <Role name="Treat.Api">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=treat;AccountKey=c/n3yJ/LaPhdx+TJNbuTZmjQmV5N+nNwgCnwfkk9HY6qCsgfHVHniddMKHvmKZwOhp0ODRjR6EAl+l9qhb8JGw==" />
+    </ConfigurationSettings>
+  </Role>
+</ServiceConfiguration>
