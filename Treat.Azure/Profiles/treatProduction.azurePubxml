@@ -7,7 +7,7 @@
     <AzureDeploymentReplacementMethod>AutomaticUpgrade</AzureDeploymentReplacementMethod>
     <AzureSlot>Production</AzureSlot>
     <AzureEnableRemoteDesktop>True</AzureEnableRemoteDesktop>
-    <AzureEnableWebDeploy>False</AzureEnableWebDeploy>
+    <AzureEnableWebDeploy>True</AzureEnableWebDeploy>
     <AzureFallbackToDeleteAndRecreateIfUpgradeFails>False</AzureFallbackToDeleteAndRecreateIfUpgradeFails>
     <AzureHostedServiceLabel>treat</AzureHostedServiceLabel>
     <AzureHostedServiceName>treat</AzureHostedServiceName>
@@ -18,5 +18,7 @@
     <AzureStorageAccountLabel>treat</AzureStorageAccountLabel>
     <AzureStorageAccountName>treat</AzureStorageAccountName>
     <AzureAppendTimestampToDeploymentLabel>True</AzureAppendTimestampToDeploymentLabel>
+    <EnableRemoteDebugger>True</EnableRemoteDebugger>
+    <RemoteDebuggerConnectorCertificateThumbprint>D12770EAB3A54819DE40A7334ED400AF23CA50FA</RemoteDebuggerConnectorCertificateThumbprint>
   </PropertyGroup>
 </Project>
