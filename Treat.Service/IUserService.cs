@@ -9,5 +9,6 @@ namespace Treat.Service
         void CreateUser(User user);
         void UpdateUser(User user);
         void Login(User user);
+        void CreateUserRating(UserRating userRating);
     }
 }

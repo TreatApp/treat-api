@@ -18,6 +18,7 @@ namespace Treat.Repository
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<EventLog> EventLogs { get; set; }
+        public virtual DbSet<UserRating> UserRatings { get; set; }
         public virtual DbSet<EventRating> EventRatings { get; set; }
         public virtual DbSet<EventRequest> EventRequests { get; set; }
 

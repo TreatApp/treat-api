@@ -8,5 +8,6 @@ namespace Treat.Repository
         User GetUserByExternalId(string externalId);
         void CreateUser(User user);
         void UpdateUser(User user);
+        void CreateUserRating(UserRating userRating);
     }
 }

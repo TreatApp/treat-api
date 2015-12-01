@@ -47,5 +47,12 @@ namespace Treat.Service
                 _userRepository.CreateUser(user);                
             }
         }
+
+        public void CreateUserRating(UserRating userRating)
+        {
+            userRating.Created = DateTime.Now;
+
+            _userRepository.CreateUserRating(userRating);
+        }
     }
 }

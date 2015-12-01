@@ -43,5 +43,14 @@ namespace Treat.Repository
                 }
             }
         }
+
+        public void CreateUserRating(UserRating userRating)
+        {
+            using (var db = new Database())
+            {
+                db.UserRatings.Add(userRating);
+                db.SaveChanges();
+            }
+        }
     }
 }
