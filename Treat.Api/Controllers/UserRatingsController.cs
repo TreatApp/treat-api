@@ -17,7 +17,7 @@ namespace Treat.Api.Controllers
 
         public void Post(int id, [FromBody]UserRating userRating)
         {
-            userRating.UserId = id;
+            userRating.EventId = id;
             _userService.CreateUserRating(userRating);
         }
     }

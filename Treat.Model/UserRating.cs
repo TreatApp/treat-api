@@ -10,6 +10,7 @@ namespace Treat.Model
     public class UserRating
     {
         [Key]
+        [DataMember]
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long UserId { get; set; }
@@ -28,8 +29,8 @@ namespace Treat.Model
         [DataMember]
         public DateTime Created { get; set; }
 
-        public virtual Event Event { get; set; }
-
         public virtual User User { get; set; }
+
+        public virtual Event Event { get; set; }
     }
 }
