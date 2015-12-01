@@ -123,6 +123,21 @@
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\..\treat-app\public\fonts\fontawesome-webfont.svg">
+      <Link>fonts\fontawesome-webfont.svg</Link>
+    </Content>
+    <Content Include="..\..\treat-app\public\img\logo.png">
+      <Link>img\logo.png</Link>
+    </Content>
+    <Content Include="..\..\treat-app\public\index.html">
+      <Link>index.html</Link>
+    </Content>
+    <Content Include="..\..\treat-app\public\javascripts\treat.js">
+      <Link>javascripts\treat.js</Link>
+    </Content>
+    <Content Include="..\..\treat-app\public\stylesheets\treat.css">
+      <Link>stylesheets\treat.css</Link>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -140,6 +155,28 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="..\..\treat-app\public\stylesheets\treat.css.map">
+      <Link>stylesheets\treat.css.map</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\treat-app\public\javascripts\treat.js.map">
+      <Link>javascripts\treat.js.map</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\treat-app\public\fonts\fontawesome-webfont.eot">
+      <Link>fonts\fontawesome-webfont.eot</Link>
+    </Content>
+    <Content Include="..\..\treat-app\public\fonts\fontawesome-webfont.ttf">
+      <Link>fonts\fontawesome-webfont.ttf</Link>
+    </Content>
+    <Content Include="..\..\treat-app\public\fonts\fontawesome-webfont.woff">
+      <Link>fonts\fontawesome-webfont.woff</Link>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
