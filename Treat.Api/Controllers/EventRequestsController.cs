@@ -26,5 +26,12 @@ namespace Treat.Api.Controllers
             eventRequest.EventId = id;
             _eventService.CreateEventRequest(eventRequest);
         }
+
+        public void Put(int id, [FromBody]EventRequest eventRequest)
+        {
+            eventRequest.EventId = id;
+            eventRequest.UserId = eventRequest.User.Id;
+            _eventService.UpdateEventRequest(eventRequest);
+        }
     }
 }

@@ -71,6 +71,19 @@ namespace Treat.Repository
             }
         }
 
+        public void UpdateEventRequest(EventRequest eventRequest)
+        {
+            using (var db = new Database())
+            {
+                var result = db.EventRequests.FirstOrDefault(e => e.EventId == eventRequest.EventId && e.UserId == eventRequest.UserId);
+                if (result != null)
+                {
+                    result.Status = eventRequest.Status;
+                    db.SaveChanges();
+                }
+            }
+        }
+
         public void CreateEventRating(EventRating eventRating)
         {
             using (var db = new Database())

@@ -60,6 +60,11 @@ namespace Treat.Service
             _eventRepository.CreateEventRequest(eventRequest);
         }
 
+        public void UpdateEventRequest(EventRequest eventRequest)
+        {
+            _eventRepository.UpdateEventRequest(eventRequest);
+        }
+
         public void CreateEventRating(EventRating eventRating)
         {
             eventRating.Created = DateTime.Now;
