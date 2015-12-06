@@ -39,6 +39,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.WebApi">
+      <HintPath>..\packages\Autofac.WebApi2.3.4.0\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -77,6 +83,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.4.2.2\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -106,6 +115,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Authentication\BasicAuthenticationFilter.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
@@ -147,6 +157,10 @@
     <ProjectReference Include="..\Treat.Model\Treat.Model.csproj">
       <Project>{1649CBAD-3F57-41CE-A794-E206A108C99D}</Project>
       <Name>Treat.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Treat.Repository\Treat.Repository.csproj">
+      <Project>{411DAAA5-4B56-4026-A4D2-6C51DDC226B8}</Project>
+      <Name>Treat.Repository</Name>
     </ProjectReference>
     <ProjectReference Include="..\Treat.Service\Treat.Service.csproj">
       <Project>{9E8F828E-33BA-42A0-B84D-25AA0EC93422}</Project>

@@ -71,6 +71,10 @@
       <Project>{1649CBAD-3F57-41CE-A794-E206A108C99D}</Project>
       <Name>Treat.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Treat.Repository\Treat.Repository.csproj">
+      <Project>{411DAAA5-4B56-4026-A4D2-6C51DDC226B8}</Project>
+      <Name>Treat.Repository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Treat.Service\Treat.Service.csproj">
       <Project>{9E8F828E-33BA-42A0-B84D-25AA0EC93422}</Project>
       <Name>Treat.Service</Name>

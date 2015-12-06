@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using Treat.Api.Authentication;
 using Treat.Model;
 using Treat.Service;
 
@@ -9,9 +8,9 @@ namespace Treat.Api.Controllers
     {
         private readonly IUserService _userService;
 
-        public AuthController()
+        public AuthController(IUserService userService)
         {
-            _userService = new UserService();
+            _userService = userService;
         }
 
         [HttpPost]

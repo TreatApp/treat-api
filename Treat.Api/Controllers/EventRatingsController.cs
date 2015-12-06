@@ -11,9 +11,9 @@ namespace Treat.Api.Controllers
     {
         private readonly IEventService _eventService;
 
-        public EventRatingsController()
+        public EventRatingsController(IEventService eventService)
         {
-            _eventService = new EventService();
+            _eventService = eventService;
         }
 
         public void Post(int id, [FromBody]EventRating eventRating)

@@ -11,9 +11,9 @@ namespace Treat.Api.Controllers
     {
         private readonly IEventService _eventService;
 
-        public EventsController()
+        public EventsController(IEventService eventService)
         {
-            _eventService = new EventService();
+            _eventService = eventService;
         }
 
         public IEnumerable<Event> Get()

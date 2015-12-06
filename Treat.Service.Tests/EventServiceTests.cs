@@ -4,6 +4,7 @@ using System.Data.Entity.Validation;
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Treat.Model;
+using Treat.Repository;
 
 namespace Treat.Service.Tests
 {
@@ -14,7 +15,8 @@ namespace Treat.Service.Tests
 
         public EventServiceTests()
         {
-            _eventService = new EventService();
+            var eventRepository = new EventRepository();
+            _eventService = new EventService(eventRepository);
         }
 
         [TestMethod]

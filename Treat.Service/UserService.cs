@@ -1,6 +1,4 @@
 using System;
-using System.Diagnostics;
-using System.Threading;
 using Treat.Model;
 using Treat.Repository;
 
@@ -10,9 +8,9 @@ namespace Treat.Service
     {
         private readonly IUserRepository _userRepository;
 
-        public UserService()
+        public UserService(IUserRepository userRepository)
         {
-            _userRepository = new UserRepository();
+            _userRepository = userRepository;
         }
 
         public User GetUser(long? id = null)

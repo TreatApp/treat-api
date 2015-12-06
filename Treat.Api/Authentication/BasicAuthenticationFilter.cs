@@ -14,15 +14,11 @@ namespace Treat.Api.Authentication
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class BasicAuthenticationFilter : AuthorizationFilterAttribute
     {
-        private readonly IUserService _userService;
-
-        public BasicAuthenticationFilter()
-        {
-            _userService = new UserService();
-        }
-
         public override void OnAuthorization(HttpActionContext actionContext)
         {
+            var requestScope = actionContext.Request.GetDependencyScope();
+            var userService = (IUserService)requestScope.GetService(typeof(IUserService));
+
             var identity = ParseAuthorizationHeader(actionContext);
             if (identity == null)
             {
@@ -30,7 +26,7 @@ namespace Treat.Api.Authentication
                 return;
             }
 
-            var user = _userService.GetUserByExternalId(identity.ExternalId);
+            var user = userService.GetUserByExternalId(identity.ExternalId);
             if (user == null)
             {
                 Challenge(actionContext);

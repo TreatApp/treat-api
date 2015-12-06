@@ -11,9 +11,9 @@ namespace Treat.Api.Controllers
     {
         private readonly IEventService _eventService;
 
-        public CategoriesController()
+        public CategoriesController(IEventService eventService)
         {
-            _eventService = new EventService();
+            _eventService = eventService;
         }
 
         public IList<Category> Get()

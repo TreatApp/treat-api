@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Treat.Model;
+using Treat.Repository;
 
 namespace Treat.Service.Tests
 {
@@ -12,7 +13,8 @@ namespace Treat.Service.Tests
 
         public UserServiceTests()
         {
-            _userService = new UserService();
+            var userRepository = new UserRepository();
+            _userService = new UserService(userRepository);
         }
 
         [TestMethod]

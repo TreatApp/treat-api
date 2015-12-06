@@ -10,9 +10,9 @@ namespace Treat.Api.Controllers
     {
         private readonly IUserService _userService;
 
-        public UserRatingsController()
+        public UserRatingsController(IUserService userService)
         {
-            _userService = new UserService();
+            _userService = userService;
         }
 
         public void Post(int id, [FromBody]UserRating userRating)

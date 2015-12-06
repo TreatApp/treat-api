@@ -10,9 +10,9 @@ namespace Treat.Service
     {
         private readonly IEventRepository _eventRepository;
 
-        public EventService()
+        public EventService(IEventRepository eventRepository)
         {
-            _eventRepository = new EventRepository();
+            _eventRepository = eventRepository;
         }
 
         public IList<Event> GetEvents()
