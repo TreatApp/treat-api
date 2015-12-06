@@ -9,5 +9,8 @@ namespace Treat.Repository
         void CreateUser(User user);
         void UpdateUser(User user);
         void CreateUserRating(UserRating userRating);
+        void CreatePaymentMethod(PaymentMethod paymentMethod);
+        void UpdatePaymentMethod(PaymentMethod paymentMethod);
+        void DeletePaymentMethod(long id);
     }
 }

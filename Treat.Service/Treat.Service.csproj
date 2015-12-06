@@ -50,7 +50,9 @@
   <ItemGroup>
     <Compile Include="EventService.cs" />
     <Compile Include="IEventService.cs" />
+    <Compile Include="IPaymentService.cs" />
     <Compile Include="IUserService.cs" />
+    <Compile Include="PaymentService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

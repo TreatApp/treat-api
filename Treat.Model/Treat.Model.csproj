@@ -49,6 +49,10 @@
     <Compile Include="EventRequest.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="Location.cs" />
+    <Compile Include="Payment.cs" />
+    <Compile Include="PaymentMethod.cs" />
+    <Compile Include="PaymentMethodType.cs" />
+    <Compile Include="PaymentStatus.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserIdentity.cs" />

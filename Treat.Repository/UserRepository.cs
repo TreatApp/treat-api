@@ -52,5 +52,40 @@ namespace Treat.Repository
                 db.SaveChanges();
             }
         }
+
+        public void CreatePaymentMethod(PaymentMethod paymentMethod)
+        {
+            using (var db = new Database())
+            {
+                db.PaymentMethods.Add(paymentMethod);
+                db.SaveChanges();
+            }
+        }
+
+        public void UpdatePaymentMethod(PaymentMethod paymentMethod)
+        {
+            using (var db = new Database())
+            {
+                var result = db.PaymentMethods.FirstOrDefault(p => p.Id == paymentMethod.Id);
+                if (result != null)
+                {
+                    result.ExternalId = paymentMethod.ExternalId;
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        public void DeletePaymentMethod(long id)
+        {
+            using (var db = new Database())
+            {
+                var result = db.PaymentMethods.FirstOrDefault(u => u.Id == id);
+                if (result != null)
+                {
+                    db.PaymentMethods.Remove(result);
+                    db.SaveChanges();
+                }
+            }
+        }
     }
 }

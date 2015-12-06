@@ -52,5 +52,20 @@ namespace Treat.Service
 
             _userRepository.CreateUserRating(userRating);
         }
+
+        public void CreatePaymentMethod(PaymentMethod paymentMethod)
+        {
+            _userRepository.CreatePaymentMethod(paymentMethod);
+        }
+
+        public void UpdatePaymentMethod(PaymentMethod paymentMethod)
+        {
+            _userRepository.UpdatePaymentMethod(paymentMethod);
+        }
+
+        public void DeletePaymentMethod(long id)
+        {
+            _userRepository.DeletePaymentMethod(id);
+        }
     }
 }

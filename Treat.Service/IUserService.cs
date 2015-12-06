@@ -10,5 +10,8 @@ namespace Treat.Service
         void UpdateUser(User user);
         void Login(User user);
         void CreateUserRating(UserRating userRating);
+        void CreatePaymentMethod(PaymentMethod paymentMethod);
+        void UpdatePaymentMethod(PaymentMethod paymentMethod);
+        void DeletePaymentMethod(long id);
     }
 }
