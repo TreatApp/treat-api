@@ -36,6 +36,9 @@ namespace Treat.Service
 
         public void UpdateEvent(Event @event)
         {
+            @event.UserId = UserIdentity.Current.User.Id;
+            @event.Location.Country = "Sweden";
+
             _eventRepository.UpdateEvent(@event);
         }
 
