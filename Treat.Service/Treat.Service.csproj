@@ -33,6 +33,9 @@
     <Reference Include="Autofac">
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Braintree-2.52.0">
+      <HintPath>..\packages\Braintree.2.52.0\lib\Braintree-2.52.0.dll</HintPath>
+    </Reference>
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.4.2.2\lib\net45\NLog.dll</HintPath>
     </Reference>
@@ -52,7 +55,7 @@
     <Compile Include="IEventService.cs" />
     <Compile Include="IPaymentService.cs" />
     <Compile Include="IUserService.cs" />
-    <Compile Include="PaymentService.cs" />
+    <Compile Include="BraintreeService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

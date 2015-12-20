@@ -16,6 +16,7 @@ namespace Treat.Api
             builder.RegisterType<EventRepository>().As<IEventRepository>().SingleInstance();
             builder.RegisterType<UserRepository>().As<IUserRepository>().SingleInstance();
 
+            builder.RegisterType<BraintreeService>().As<IPaymentService>().SingleInstance();
             builder.RegisterType<EventService>().As<IEventService>().SingleInstance();
             builder.RegisterType<UserService>().As<IUserService>().SingleInstance();
             
