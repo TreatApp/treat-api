@@ -22,6 +22,7 @@ namespace Treat.Repository
         public virtual DbSet<EventRating> EventRatings { get; set; }
         public virtual DbSet<EventRequest> EventRequests { get; set; }
         public virtual DbSet<PaymentMethod> PaymentMethods { get; set; }
+        public virtual DbSet<BankAccount> BankAccounts { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

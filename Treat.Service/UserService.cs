@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Treat.Model;
 using Treat.Repository;
 
@@ -66,6 +67,23 @@ namespace Treat.Service
         public void DeletePaymentMethod(long id)
         {
             _userRepository.DeletePaymentMethod(id);
+        }
+
+        public IEnumerable<PaymentMethod> GetPaymentMethods()
+        {
+            return _userRepository.GetPaymentMethods(UserIdentity.Current.User.Id);
+        }
+
+        public IEnumerable<BankAccount> GetBankAccounts()
+        {
+            return _userRepository.GetBankAccounts(UserIdentity.Current.User.Id);
+        }
+
+        public void CreateBankAccount(BankAccount bankAccount)
+        {
+            bankAccount.UserId = UserIdentity.Current.User.Id;
+
+            _userRepository.CreateBankAccount(bankAccount);
         }
     }
 }

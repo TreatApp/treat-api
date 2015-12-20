@@ -27,6 +27,11 @@ namespace Treat.Model
 
         [Required]
         [DataMember]
+        [StringLength(50)]
+        public string PaymentId { get; set; }
+
+        [Required]
+        [DataMember]
         [StringLength(100)]
         public string Email { get; set; }
 

@@ -118,12 +118,14 @@
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Authentication\BasicAuthenticationFilter.cs" />
+    <Compile Include="Controllers\BankAccountController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\EventLogsController.cs" />
     <Compile Include="Controllers\EventRatingsController.cs" />
     <Compile Include="Controllers\EventRequestsController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\PaymentMethodController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserRatingsController.cs" />
     <Compile Include="Global.asax.cs">

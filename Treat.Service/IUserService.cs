@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Treat.Model;
 
 namespace Treat.Service
@@ -13,5 +14,8 @@ namespace Treat.Service
         void CreatePaymentMethod(PaymentMethod paymentMethod);
         void UpdatePaymentMethod(PaymentMethod paymentMethod);
         void DeletePaymentMethod(long id);
+        IEnumerable<PaymentMethod> GetPaymentMethods();
+        IEnumerable<BankAccount> GetBankAccounts();
+        void CreateBankAccount(BankAccount bankAccount);
     }
 }

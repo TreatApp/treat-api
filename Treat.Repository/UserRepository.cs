@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Treat.Model;
 
@@ -53,6 +54,14 @@ namespace Treat.Repository
             }
         }
 
+        public IEnumerable<PaymentMethod> GetPaymentMethods(long userId)
+        {
+            using (var db = new Database())
+            {
+                return db.PaymentMethods.Where(u => u.UserId == userId);
+            }
+        }
+
         public void CreatePaymentMethod(PaymentMethod paymentMethod)
         {
             using (var db = new Database())
@@ -85,6 +94,23 @@ namespace Treat.Repository
                     db.PaymentMethods.Remove(result);
                     db.SaveChanges();
                 }
+            }
+        }
+
+        public IEnumerable<BankAccount> GetBankAccounts(long userId)
+        {
+            using (var db = new Database())
+            {
+                return db.BankAccounts.Where(u => u.UserId == userId);
+            }
+        }
+
+        public void CreateBankAccount(BankAccount bankAccount)
+        {
+            using (var db = new Database())
+            {
+                db.BankAccounts.Add(bankAccount);
+                db.SaveChanges();
             }
         }
     }
