@@ -54,6 +54,11 @@ namespace Treat.Service
             _userRepository.CreateUserRating(userRating);
         }
 
+        public IEnumerable<PaymentMethod> GetPaymentMethods()
+        {
+            return _userRepository.GetPaymentMethods(UserIdentity.Current.User.Id);
+        }
+
         public void CreatePaymentMethod(PaymentMethod paymentMethod)
         {
             _userRepository.CreatePaymentMethod(paymentMethod);
@@ -69,11 +74,6 @@ namespace Treat.Service
             _userRepository.DeletePaymentMethod(id);
         }
 
-        public IEnumerable<PaymentMethod> GetPaymentMethods()
-        {
-            return _userRepository.GetPaymentMethods(UserIdentity.Current.User.Id);
-        }
-
         public IEnumerable<BankAccount> GetBankAccounts()
         {
             return _userRepository.GetBankAccounts(UserIdentity.Current.User.Id);
@@ -84,6 +84,16 @@ namespace Treat.Service
             bankAccount.UserId = UserIdentity.Current.User.Id;
 
             _userRepository.CreateBankAccount(bankAccount);
+        }
+
+        public void UpdateBankAccount(BankAccount bankAccount)
+        {
+            _userRepository.UpdateBankAccount(bankAccount);
+        }
+
+        public void DeleteBankAccount(long id)
+        {
+            _userRepository.DeleteBankAccount(id);
         }
     }
 }

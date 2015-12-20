@@ -113,5 +113,32 @@ namespace Treat.Repository
                 db.SaveChanges();
             }
         }
+
+        public void UpdateBankAccount(BankAccount bankAccount)
+        {
+            using (var db = new Database())
+            {
+                var result = db.BankAccounts.FirstOrDefault(p => p.Id == bankAccount.Id);
+                if (result != null)
+                {
+                    result.Name = bankAccount.Name;
+                    result.Number = bankAccount.Number;
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        public void DeleteBankAccount(long id)
+        {
+            using (var db = new Database())
+            {
+                var result = db.BankAccounts.FirstOrDefault(u => u.Id == id);
+                if (result != null)
+                {
+                    db.BankAccounts.Remove(result);
+                    db.SaveChanges();
+                }
+            }
+        }
     }
 }

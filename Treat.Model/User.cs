@@ -14,6 +14,8 @@ namespace Treat.Model
         public User()
         {
             UserRatings = new HashSet<UserRating>();
+            PaymentMethods = new HashSet<PaymentMethod>();
+            BankAccounts = new HashSet<BankAccount>();
         }
 
         [DataMember]
@@ -52,5 +54,9 @@ namespace Treat.Model
         public DateTime Created { get; set; }
 
         public virtual ICollection<UserRating> UserRatings { get; set; }
+
+        public virtual ICollection<PaymentMethod> PaymentMethods { get; set; }
+        
+        public virtual ICollection<BankAccount> BankAccounts { get; set; }
     }
 }

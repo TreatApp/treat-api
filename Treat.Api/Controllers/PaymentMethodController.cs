@@ -28,5 +28,10 @@ namespace Treat.Api.Controllers
         {
             _paymentService.CreatePaymentMethod(UserIdentity.Current.User.PaymentId, paymentMethod);
         }
+
+        public void Delete(int id)
+        {
+            _userService.DeletePaymentMethod(id);
+        }
     }
 }

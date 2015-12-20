@@ -11,11 +11,15 @@ namespace Treat.Service
         void UpdateUser(User user);
         void Login(User user);
         void CreateUserRating(UserRating userRating);
+
+        IEnumerable<PaymentMethod> GetPaymentMethods();
         void CreatePaymentMethod(PaymentMethod paymentMethod);
         void UpdatePaymentMethod(PaymentMethod paymentMethod);
         void DeletePaymentMethod(long id);
-        IEnumerable<PaymentMethod> GetPaymentMethods();
+
         IEnumerable<BankAccount> GetBankAccounts();
         void CreateBankAccount(BankAccount bankAccount);
+        void UpdateBankAccount(BankAccount bankAccount);
+        void DeleteBankAccount(long id);
     }
 }

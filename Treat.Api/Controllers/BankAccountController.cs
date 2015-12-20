@@ -25,5 +25,15 @@ namespace Treat.Api.Controllers
         {
             _userService.CreateBankAccount(bankAccount);
         }
+
+        public void Put([FromBody]BankAccount bankAccount)
+        {
+            _userService.UpdateBankAccount(bankAccount);
+        }
+
+        public void Delete(int id)
+        {
+            _userService.DeleteBankAccount(id);
+        }
     }
 }

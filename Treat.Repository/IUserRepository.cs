@@ -19,5 +19,7 @@ namespace Treat.Repository
 
         IEnumerable<BankAccount> GetBankAccounts(long userId);
         void CreateBankAccount(BankAccount bankAccount);
+        void UpdateBankAccount(BankAccount bankAccount);
+        void DeleteBankAccount(long id);
     }
 }
