@@ -58,7 +58,7 @@ namespace Treat.Repository
         {
             using (var db = new Database())
             {
-                return db.PaymentMethods.Where(u => u.UserId == userId);
+                return db.PaymentMethods.Where(u => u.UserId == userId).ToList();
             }
         }
 
@@ -101,7 +101,7 @@ namespace Treat.Repository
         {
             using (var db = new Database())
             {
-                return db.BankAccounts.Where(u => u.UserId == userId);
+                return db.BankAccounts.Where(u => u.UserId == userId).ToList();
             }
         }
 

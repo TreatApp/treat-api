@@ -27,7 +27,6 @@ namespace Treat.Model
         [StringLength(50)]
         public string ExternalId { get; set; }
 
-        [Required]
         [DataMember]
         [StringLength(50)]
         public string PaymentId { get; set; }
