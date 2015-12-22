@@ -18,6 +18,15 @@ namespace Treat.Service
             };
         }
 
+        public string GetClientToken(string customerId = null)
+        {
+            var request = new ClientTokenRequest
+            {
+                CustomerId = customerId
+            };
+            return _gateway.ClientToken.generate(request);
+        }
+
         public string CreateCustomer(string firstName, string lastName)
         {
             var request = new CustomerRequest
