@@ -54,6 +54,19 @@ namespace Treat.Repository
             }
         }
 
+        public void SetPaymentId(long userId, string paymentId)
+        {
+            using (var db = new Database())
+            {
+                var result = db.Users.FirstOrDefault(u => u.Id == userId);
+                if (result != null)
+                {
+                    result.PaymentId = paymentId;
+                    db.SaveChanges();
+                }
+            }
+        }
+
         public IEnumerable<PaymentMethod> GetPaymentMethods(long userId)
         {
             using (var db = new Database())

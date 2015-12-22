@@ -11,6 +11,7 @@ namespace Treat.Repository
         void CreateUser(User user);
         void UpdateUser(User user);
         void CreateUserRating(UserRating userRating);
+        void SetPaymentId(long userId, string paymentId);
 
         IEnumerable<PaymentMethod> GetPaymentMethods(long userId);
         void CreatePaymentMethod(PaymentMethod paymentMethod);

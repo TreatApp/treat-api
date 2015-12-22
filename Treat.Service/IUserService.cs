@@ -11,6 +11,7 @@ namespace Treat.Service
         void UpdateUser(User user);
         void Login(User user);
         void CreateUserRating(UserRating userRating);
+        void SetPaymentId(long userId, string paymentId);
 
         IEnumerable<PaymentMethod> GetPaymentMethods();
         void CreatePaymentMethod(PaymentMethod paymentMethod);

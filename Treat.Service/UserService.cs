@@ -54,6 +54,11 @@ namespace Treat.Service
             _userRepository.CreateUserRating(userRating);
         }
 
+        public void SetPaymentId(long userId, string paymentId)
+        {
+            _userRepository.SetPaymentId(userId, paymentId);
+        }
+
         public IEnumerable<PaymentMethod> GetPaymentMethods()
         {
             return _userRepository.GetPaymentMethods(UserIdentity.Current.User.Id);

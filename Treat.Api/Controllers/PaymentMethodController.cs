@@ -24,9 +24,21 @@ namespace Treat.Api.Controllers
             return _userService.GetPaymentMethods();
         }
 
-        public void Post([FromBody]string paymentMethod)
+        public void Post([FromBody]PaymentMethod paymentMethod)
         {
-            _paymentService.CreatePaymentMethod(UserIdentity.Current.User.PaymentId, paymentMethod);
+            var user = UserIdentity.Current.User;
+
+            if (user.PaymentId == null)
+            {
+                user.PaymentId = _paymentService.CreateCustomer(user.FirstName, user.LastName);
+                _userService.SetPaymentId(user.Id, user.PaymentId);
+            }
+
+            var token = _paymentService.CreatePaymentMethod(user.PaymentId, paymentMethod.ExternalId);
+            
+            paymentMethod.UserId = user.Id;
+            paymentMethod.ExternalId = token;
+            _userService.CreatePaymentMethod(paymentMethod);
         }
 
         public void Delete(int id)

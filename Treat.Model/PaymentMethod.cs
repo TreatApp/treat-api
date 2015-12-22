@@ -25,5 +25,15 @@ namespace Treat.Model
         [DataMember]
         [StringLength(50)]
         public string ExternalId { get; set; }
+
+        [Required]
+        [DataMember]
+        [StringLength(50)]
+        public string Name { get; set; }
+
+        [Required]
+        [DataMember]
+        [StringLength(50)]
+        public string Description { get; set; }
     }
 }
