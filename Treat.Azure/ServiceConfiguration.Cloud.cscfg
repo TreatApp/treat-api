@@ -3,6 +3,7 @@
   <Role name="Treat.Api">
     <Instances count="1" />
     <ConfigurationSettings>
+      <Setting name="StorageConnectionString" value="DefaultEndpointsProtocol=https;AccountName=treat;AccountKey=c/n3yJ/LaPhdx+TJNbuTZmjQmV5N+nNwgCnwfkk9HY6qCsgfHVHniddMKHvmKZwOhp0ODRjR6EAl+l9qhb8JGw==" />
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=treat;AccountKey=c/n3yJ/LaPhdx+TJNbuTZmjQmV5N+nNwgCnwfkk9HY6qCsgfHVHniddMKHvmKZwOhp0ODRjR6EAl+l9qhb8JGw==" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="victor" />

@@ -19,6 +19,7 @@ namespace Treat.Api
             builder.RegisterType<BraintreeService>().As<IPaymentService>().SingleInstance();
             builder.RegisterType<EventService>().As<IEventService>().SingleInstance();
             builder.RegisterType<UserService>().As<IUserService>().SingleInstance();
+            builder.RegisterType<FileService>().As<IFileService>().SingleInstance();
             
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 

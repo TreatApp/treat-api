@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="BankAccount.cs" />
     <Compile Include="Category.cs" />
+    <Compile Include="EventImage.cs" />
     <Compile Include="EventLogType.cs" />
     <Compile Include="EventRating.cs" />
     <Compile Include="EventLog.cs" />

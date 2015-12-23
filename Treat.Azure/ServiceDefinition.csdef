@@ -9,6 +9,7 @@
       </Site>
     </Sites>
     <ConfigurationSettings>
+      <Setting name="StorageConnectionString" />
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
     </ConfigurationSettings>
     <Endpoints>

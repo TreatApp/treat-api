@@ -125,6 +125,7 @@
     <Compile Include="Controllers\EventRequestsController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\EventImageController.cs" />
     <Compile Include="Controllers\PaymentMethodController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserRatingsController.cs" />
