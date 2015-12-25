@@ -13,9 +13,11 @@ namespace Treat.Model
         public Event()
         {
             Categories = new HashSet<Category>();
+            EventImages = new HashSet<EventImage>();
             EventLogs = new HashSet<EventLog>();
             EventRatings = new HashSet<EventRating>();
             EventRequests = new HashSet<EventRequest>();
+            EventTransactions = new HashSet<EventTransaction>();
         }
 
         [DataMember]
@@ -59,10 +61,15 @@ namespace Treat.Model
         [DataMember]
         public virtual ICollection<Category> Categories { get; set; }
 
+        [DataMember]
+        public virtual ICollection<EventImage> EventImages { get; set; }
+
         public virtual ICollection<EventLog> EventLogs { get; set; }
 
         public virtual ICollection<EventRating> EventRatings { get; set; }
 
         public virtual ICollection<EventRequest> EventRequests { get; set; }
+
+        public virtual ICollection<EventTransaction> EventTransactions { get; set; }
     }
 }

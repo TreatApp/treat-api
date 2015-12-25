@@ -31,11 +31,10 @@ namespace Treat.Api.Controllers
             var content = new byte[file.ContentLength];
             file.InputStream.Read(content, 0, content.Length);
 
-            _fileService.UploadEventImage(file.FileName, content);
+            var fileName = string.Format("{0}{1}", Guid.NewGuid(), Path.GetExtension(file.FileName));
+            _fileService.UploadEventImage(fileName, content);
 
-            var eventImage = new EventImage {FileName = file.FileName};
-
-            return Request.CreateResponse(HttpStatusCode.Created, eventImage);
+            return Request.CreateResponse(HttpStatusCode.Created, new EventImage {FileName = fileName});
         }
     }
 }

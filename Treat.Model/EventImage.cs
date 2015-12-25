@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 namespace Treat.Model
 {
     [DataContract]
-    [Table("EventLog")]
+    [Table("EventImage")]
     public class EventImage
     {
         [DataMember]
@@ -18,5 +18,7 @@ namespace Treat.Model
         [Required]
         [DataMember]
         public string FileName { get; set; }
+
+        public virtual Event Event { get; set; }
     }
 }

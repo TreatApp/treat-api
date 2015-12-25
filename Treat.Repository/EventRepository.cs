@@ -33,7 +33,8 @@ namespace Treat.Repository
             return db.Events
                 .Include(e => e.User)
                 .Include(e => e.Location)
-                .Include(e => e.Categories);
+                .Include(e => e.Categories)
+                .Include(e => e.EventImages);
         }
 
         public void CreateEvent(Event @event)

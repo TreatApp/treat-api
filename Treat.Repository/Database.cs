@@ -21,6 +21,8 @@ namespace Treat.Repository
         public virtual DbSet<UserRating> UserRatings { get; set; }
         public virtual DbSet<EventRating> EventRatings { get; set; }
         public virtual DbSet<EventRequest> EventRequests { get; set; }
+        public virtual DbSet<EventImage> EventImages { get; set; }
+        public virtual DbSet<EventTransaction> EventTransactions { get; set; }
         public virtual DbSet<PaymentMethod> PaymentMethods { get; set; }
         public virtual DbSet<BankAccount> BankAccounts { get; set; }
 
@@ -45,6 +47,16 @@ namespace Treat.Repository
 
             modelBuilder.Entity<Event>()
                 .HasMany(e => e.EventRequests)
+                .WithRequired(e => e.Event)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Event>()
+                .HasMany(e => e.EventImages)
+                .WithRequired(e => e.Event)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Event>()
+                .HasMany(e => e.EventTransactions)
                 .WithRequired(e => e.Event)
                 .WillCascadeOnDelete(false);
 
