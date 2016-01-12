@@ -136,20 +136,37 @@
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\treat-app\public\fonts\fontawesome-webfont.svg">
+    <Content Include="..\..\treat-app\www\cordova.js">
+      <Link>cordova.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\treat-app\www\cordova_plugins.js">
+      <Link>cordova_plugins.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\treat-app\www\fonts\fontawesome-webfont.svg">
       <Link>fonts\fontawesome-webfont.svg</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\treat-app\public\img\logo.png">
+    <Content Include="..\..\treat-app\www\img\logo.png">
       <Link>img\logo.png</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\treat-app\public\index.html">
+    <Content Include="..\..\treat-app\www\index.html">
       <Link>index.html</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\treat-app\public\javascripts\treat.js">
+    <Content Include="..\..\treat-app\www\javascripts\treat.js">
       <Link>javascripts\treat.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\treat-app\public\stylesheets\treat.css">
+    <Content Include="..\..\treat-app\www\plugins\phonegap-facebook-plugin\facebookConnectPlugin.js">
+      <Link>plugins\phonegap-facebook-plugin\facebookConnectPlugin.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\treat-app\www\stylesheets\treat.css">
       <Link>stylesheets\treat.css</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Global.asax" />
     <Content Include="Web.config">
@@ -173,26 +190,30 @@
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="..\..\treat-app\public\stylesheets\treat.css.map">
-      <Link>stylesheets\treat.css.map</Link>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\..\treat-app\public\javascripts\treat.js.map">
-      <Link>javascripts\treat.js.map</Link>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\..\treat-app\public\fonts\fontawesome-webfont.eot">
+    <Content Include="..\..\treat-app\www\fonts\fontawesome-webfont.eot">
       <Link>fonts\fontawesome-webfont.eot</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\treat-app\public\fonts\fontawesome-webfont.ttf">
+    <Content Include="..\..\treat-app\www\fonts\fontawesome-webfont.ttf">
       <Link>fonts\fontawesome-webfont.ttf</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\treat-app\public\fonts\fontawesome-webfont.woff">
+    <Content Include="..\..\treat-app\www\fonts\fontawesome-webfont.woff">
       <Link>fonts\fontawesome-webfont.woff</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\treat-app\www\javascripts\treat.js.map">
+      <Link>javascripts\treat.js.map</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\treat-app\www\stylesheets\treat.css.map">
+      <Link>stylesheets\treat.css.map</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <PropertyGroup>
