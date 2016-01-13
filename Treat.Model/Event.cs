@@ -62,6 +62,9 @@ namespace Treat.Model
         public decimal Rating { get; set; }
 
         [DataMember]
+        public int SlotsAvailable { get; set; }
+
+        [DataMember]
         public virtual ICollection<Category> Categories { get; set; }
 
         [DataMember]

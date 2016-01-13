@@ -61,6 +61,8 @@ namespace Treat.Repository
                     @event.Categories.Add(category);
                 }
 
+                @event.SlotsAvailable = @event.Slots;
+
                 db.Events.Add(@event);
                 db.SaveChanges();
             }
@@ -92,6 +94,13 @@ namespace Treat.Repository
                 if (result != null)
                 {
                     result.Status = eventRequest.Status;
+                    
+                    if (result.Status == EventRequestStatus.Approved)
+                        result.Event.SlotsAvailable -= 1;
+
+                    else if (result.Status == EventRequestStatus.Cancelled)
+                        result.Event.SlotsAvailable += 1;
+                    
                     db.SaveChanges();
                 }
             }
@@ -144,12 +153,17 @@ namespace Treat.Repository
                 var result = db.Events.FirstOrDefault(e => e.Id == @event.Id);
                 if (result != null)
                 {
+                    var slotsTaken = result.Slots - result.SlotsAvailable;
+                    if (@event.Slots < slotsTaken)
+                        throw new ArgumentOutOfRangeException("Slots");
+
                     result.Title = @event.Title;
                     result.Description = @event.Description;
                     result.Start = @event.Start;
                     result.End = @event.End;
                     result.Price = @event.Price;
                     result.Slots = @event.Slots;
+                    result.SlotsAvailable = @event.Slots - slotsTaken;
                     result.Location = @event.Location;
                     result.Categories = @event.Categories;
                     db.SaveChanges();
