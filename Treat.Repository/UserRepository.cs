@@ -50,6 +50,11 @@ namespace Treat.Repository
             using (var db = new Database())
             {
                 db.UserRatings.Add(userRating);
+
+                var result = db.Users.FirstOrDefault(e => e.Id == userRating.UserId);
+                if (result != null)
+                    result.Rating = db.UserRatings.Where(u => u.UserId == userRating.UserId).Average(u => u.Rating);
+
                 db.SaveChanges();
             }
         }

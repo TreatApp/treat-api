@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace Treat.Model
@@ -51,6 +52,9 @@ namespace Treat.Model
 
         [DataMember]
         public DateTime Created { get; set; }
+
+        [DataMember]
+        public double Rating { get; set; }
 
         public virtual ICollection<UserRating> UserRatings { get; set; }
 
