@@ -54,7 +54,7 @@ namespace Treat.Model
         public DateTime Created { get; set; }
 
         [DataMember]
-        public double Rating { get; set; }
+        public decimal Rating { get; set; }
 
         public virtual ICollection<UserRating> UserRatings { get; set; }
 

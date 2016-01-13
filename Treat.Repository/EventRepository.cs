@@ -102,12 +102,14 @@ namespace Treat.Repository
             using (var db = new Database())
             {
                 db.EventRatings.Add(eventRating);
+                db.SaveChanges();
 
                 var result = db.Events.FirstOrDefault(e => e.Id == eventRating.EventId);
                 if (result != null)
-                    result.Rating = db.EventRatings.Where(e => e.EventId == eventRating.EventId).Average(e => e.Rating);
-
-                db.SaveChanges();
+                {
+                    result.Rating = Convert.ToDecimal(db.EventRatings.Where(e => e.EventId == eventRating.EventId).Average(e => e.Rating));
+                    db.SaveChanges();
+                }
             }
         }
 

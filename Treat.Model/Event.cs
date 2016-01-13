@@ -59,7 +59,7 @@ namespace Treat.Model
         public virtual Location Location { get; set; }
 
         [DataMember]
-        public double Rating { get; set; }
+        public decimal Rating { get; set; }
 
         [DataMember]
         public virtual ICollection<Category> Categories { get; set; }
