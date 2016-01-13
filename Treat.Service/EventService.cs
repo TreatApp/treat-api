@@ -20,6 +20,11 @@ namespace Treat.Service
             return _eventRepository.GetEvents();
         }
 
+        public IList<Event> GetUserEvents()
+        {
+            return _eventRepository.GetUserEvents(UserIdentity.Current.User.Id);
+        }
+
         public Event GetEvent(long id)
         {
             return _eventRepository.GetEvent(id);

@@ -6,6 +6,7 @@ namespace Treat.Service
     public interface IEventService
     {
         IList<Event> GetEvents();
+        IList<Event> GetUserEvents();
         Event GetEvent(long id);
         void CreateEvent(Event @event);
         void UpdateEvent(Event @event);

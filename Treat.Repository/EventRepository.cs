@@ -20,6 +20,18 @@ namespace Treat.Repository
             }
         }
 
+        public IList<Event> GetUserEvents(long userId)
+        {
+            using (var db = new Database())
+            {
+                var events = from e in GetEvents(db)
+                             where e.UserId == userId || e.EventRequests.Any(r => r.UserId == userId)
+                             select e;
+
+                return events.ToList();
+            }
+        }
+
         public Event GetEvent(long id)
         {
             using (var db = new Database())

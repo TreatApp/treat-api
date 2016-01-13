@@ -6,6 +6,7 @@ namespace Treat.Repository
     public interface IEventRepository
     {
         IList<Event> GetEvents();
+        IList<Event> GetUserEvents(long userId);
         Event GetEvent(long id);
         void CreateEvent(Event @event);
         void UpdateEvent(Event @event);
