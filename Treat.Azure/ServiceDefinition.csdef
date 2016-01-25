@@ -9,15 +9,16 @@
       </Site>
     </Sites>
     <ConfigurationSettings>
+      <Setting name="BraintreeEnvironment" />
+      <Setting name="BraintreeMerchantId" />
+      <Setting name="BraintreePublicKey" />
+      <Setting name="BraintreePrivateKey" />
+      <Setting name="DbConnectionString" />
       <Setting name="StorageConnectionString" />
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
     </ConfigurationSettings>
     <Endpoints>
       <InputEndpoint name="Treat.Api.Endpoint" protocol="http" port="80" />
     </Endpoints>
-    <Imports>
-      <Import moduleName="RemoteAccess" />
-      <Import moduleName="RemoteForwarder" />
-    </Imports>
   </WebRole>
 </ServiceDefinition>

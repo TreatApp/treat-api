@@ -10,7 +10,8 @@ namespace Treat.Service.Tests
 
         public PaymentServiceTests()
         {
-            _paymentService = new BraintreeService();
+            var settings = new Settings();
+            _paymentService = new BraintreeService(settings);
         }
 
         [TestMethod]

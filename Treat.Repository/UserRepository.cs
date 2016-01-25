@@ -7,9 +7,16 @@ namespace Treat.Repository
 {
     public class UserRepository : IUserRepository
     {
+        private readonly ISettings _settings;
+
+        public UserRepository(ISettings settings)
+        {
+            _settings = settings;
+        }
+
         public User GetUser(long id)
         {
-            using (var db = new Database())
+            using (var db = new Database(_settings))
             {
                 return db.Users.FirstOrDefault(u => u.Id == id);
             }
@@ -17,7 +24,7 @@ namespace Treat.Repository
 
         public User GetUserByExternalId(string externalId)
         {
-            using (var db = new Database())
+            using (var db = new Database(_settings))
             {
                 return db.Users.FirstOrDefault(u => u.ExternalId == externalId);
             }
@@ -25,7 +32,7 @@ namespace Treat.Repository
 
         public void CreateUser(User user)
         {
-            using (var db = new Database())
+            using (var db = new Database(_settings))
             {
                 db.Users.Add(user);
                 db.SaveChanges();
@@ -34,7 +41,7 @@ namespace Treat.Repository
 
         public void UpdateUser(User user)
         {
-            using (var db = new Database())
+            using (var db = new Database(_settings))
             {
                 var result = db.Users.FirstOrDefault(u => u.Id == user.Id);
                 if (result != null)
@@ -48,7 +55,7 @@ namespace Treat.Repository
 
         public void CreateUserRating(UserRating userRating)
         {
-            using (var db = new Database())
+            using (var db = new Database(_settings))
             {
                 db.UserRatings.Add(userRating);
                 db.SaveChanges();
@@ -64,7 +71,7 @@ namespace Treat.Repository
 
         public void SetPaymentId(long userId, string paymentId)
         {
-            using (var db = new Database())
+            using (var db = new Database(_settings))
             {
                 var result = db.Users.FirstOrDefault(u => u.Id == userId);
                 if (result != null)
@@ -77,7 +84,7 @@ namespace Treat.Repository
 
         public IEnumerable<PaymentMethod> GetPaymentMethods(long userId)
         {
-            using (var db = new Database())
+            using (var db = new Database(_settings))
             {
                 return db.PaymentMethods.Where(u => u.UserId == userId).ToList();
             }
@@ -85,7 +92,7 @@ namespace Treat.Repository
 
         public void CreatePaymentMethod(PaymentMethod paymentMethod)
         {
-            using (var db = new Database())
+            using (var db = new Database(_settings))
             {
                 db.PaymentMethods.Add(paymentMethod);
                 db.SaveChanges();
@@ -94,7 +101,7 @@ namespace Treat.Repository
 
         public void UpdatePaymentMethod(PaymentMethod paymentMethod)
         {
-            using (var db = new Database())
+            using (var db = new Database(_settings))
             {
                 var result = db.PaymentMethods.FirstOrDefault(p => p.Id == paymentMethod.Id);
                 if (result != null)
@@ -107,7 +114,7 @@ namespace Treat.Repository
 
         public void DeletePaymentMethod(long id)
         {
-            using (var db = new Database())
+            using (var db = new Database(_settings))
             {
                 var result = db.PaymentMethods.FirstOrDefault(u => u.Id == id);
                 if (result != null)
@@ -120,7 +127,7 @@ namespace Treat.Repository
 
         public IEnumerable<BankAccount> GetBankAccounts(long userId)
         {
-            using (var db = new Database())
+            using (var db = new Database(_settings))
             {
                 return db.BankAccounts.Where(u => u.UserId == userId).ToList();
             }
@@ -128,7 +135,7 @@ namespace Treat.Repository
 
         public void CreateBankAccount(BankAccount bankAccount)
         {
-            using (var db = new Database())
+            using (var db = new Database(_settings))
             {
                 db.BankAccounts.Add(bankAccount);
                 db.SaveChanges();
@@ -137,7 +144,7 @@ namespace Treat.Repository
 
         public void UpdateBankAccount(BankAccount bankAccount)
         {
-            using (var db = new Database())
+            using (var db = new Database(_settings))
             {
                 var result = db.BankAccounts.FirstOrDefault(p => p.Id == bankAccount.Id);
                 if (result != null)
@@ -151,7 +158,7 @@ namespace Treat.Repository
 
         public void DeleteBankAccount(long id)
         {
-            using (var db = new Database())
+            using (var db = new Database(_settings))
             {
                 var result = db.BankAccounts.FirstOrDefault(u => u.Id == id);
                 if (result != null)

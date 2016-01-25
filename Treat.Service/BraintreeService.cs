@@ -1,5 +1,9 @@
+using System;
 using Braintree;
+using Microsoft.WindowsAzure;
+using RestSharp.Extensions;
 using Treat.Model;
+using Environment = Braintree.Environment;
 
 namespace Treat.Service
 {
@@ -7,14 +11,14 @@ namespace Treat.Service
     {
         private readonly BraintreeGateway _gateway ;
 
-        public BraintreeService()
+        public BraintreeService(ISettings settings)
         {
             _gateway = new BraintreeGateway
             {
-                Environment = Environment.SANDBOX,
-                MerchantId = "n78hx5ft5nd7jr7t",
-                PublicKey = "ddsywx82z3mm29sx",
-                PrivateKey = "2a45a4543d88ccc20a303e79c6d6d5e8"
+                Environment = settings.BraintreeEnvironment == "PRODUCTION" ? Environment.PRODUCTION : Environment.SANDBOX,
+                MerchantId = settings.BraintreeMerchantId,
+                PublicKey = settings.BraintreePublicKey,
+                PrivateKey = settings.BraintreePrivateKey
             };
         }
 

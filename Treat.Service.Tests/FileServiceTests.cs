@@ -13,7 +13,8 @@ namespace Treat.Service.Tests
 
         public FileServiceTests()
         {
-            _fileService = new FileService();
+            var settings = new Settings();
+            _fileService = new FileService(settings);
         }
 
         [TestMethod]

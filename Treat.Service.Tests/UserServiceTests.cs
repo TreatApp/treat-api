@@ -13,7 +13,8 @@ namespace Treat.Service.Tests
 
         public UserServiceTests()
         {
-            var userRepository = new UserRepository();
+            var settings = new Settings();
+            var userRepository = new UserRepository(settings);
             _userService = new UserService(userRepository);
         }
 

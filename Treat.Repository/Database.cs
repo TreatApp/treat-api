@@ -9,7 +9,7 @@ namespace Treat.Repository
 {
     public class Database : DbContext
     {
-        public Database() : base("name=treat")
+        public Database(ISettings settings) : base(settings.DbConnectionString)
         {
         }
 

@@ -15,7 +15,8 @@ namespace Treat.Service.Tests
 
         public EventServiceTests()
         {
-            var eventRepository = new EventRepository();
+            var settings = new Settings();
+            var eventRepository = new EventRepository(settings);
             _eventService = new EventService(eventRepository);
         }
 

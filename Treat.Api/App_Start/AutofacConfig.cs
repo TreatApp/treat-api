@@ -2,6 +2,7 @@
 using System.Web.Http;
 using Autofac;
 using Autofac.Integration.WebApi;
+using Treat.Model;
 using Treat.Repository;
 using Treat.Service;
 
@@ -12,6 +13,7 @@ namespace Treat.Api
         public static void Register(HttpConfiguration config)
         {
             var builder = new ContainerBuilder();
+            builder.RegisterType<Settings>().As<ISettings>().SingleInstance();
 
             builder.RegisterType<EventRepository>().As<IEventRepository>().SingleInstance();
             builder.RegisterType<UserRepository>().As<IUserRepository>().SingleInstance();

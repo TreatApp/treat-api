@@ -20,7 +20,7 @@ Thumbs.db
 *.ilk
 *.log
 *.azurePubxml
-*.cscfg
+*.Cloud.cscfg
 [Bb]in
 [Dd]ebug*/
 *.lib
