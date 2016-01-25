@@ -8,5 +8,7 @@ namespace Treat.Service
         string CreateCustomer(string firstName, string lastName);
         string CreatePaymentMethod(string customerId, string paymentMethod);
         string CreatePayment(string customerId, string token, decimal amount);
+        void CancelPayment(string transactionId);
+        void RefundPayment(string transactionId);
     }
 }

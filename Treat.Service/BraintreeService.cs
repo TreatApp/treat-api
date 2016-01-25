@@ -39,9 +39,11 @@ namespace Treat.Service
                 LastName = lastName
             };
             var result = _gateway.Customer.Create(request);
-            var success = result.IsSuccess();
-            var customer = result.Target;
-            return customer.Id;
+            
+            if (!result.IsSuccess())
+                throw new Exception(result.Message);
+
+            return result.Target.Id;
         }
 
         public string CreatePaymentMethod(string customerId, string nonce)
@@ -52,9 +54,11 @@ namespace Treat.Service
                 PaymentMethodNonce = nonce
             };
             var result = _gateway.PaymentMethod.Create(request);
-            var success = result.IsSuccess();
-            var paymentMethod = result.Target;
-            return paymentMethod.Token;
+            
+            if (!result.IsSuccess())
+                throw new Exception(result.Message);
+            
+            return result.Target.Token;
         }
 
         public string CreatePayment(string customerId, string token, decimal amount)
@@ -63,12 +67,34 @@ namespace Treat.Service
             {
                 CustomerId = customerId,
                 PaymentMethodToken = token,
-                Amount = amount
+                Amount = amount,
+                Options =
+                {
+                    SubmitForSettlement = true
+                }
             };
             var result = _gateway.Transaction.Sale(request);
-            var success = result.IsSuccess();
-            var transaction = result.Target;
-            return transaction.Id;
+            
+            if(!result.IsSuccess())
+                throw new Exception(result.Message);
+
+            return result.Target.Id;
+        }
+
+        public void CancelPayment(string transactionId)
+        {
+            var result = _gateway.Transaction.Void(transactionId);
+
+            if (!result.IsSuccess())
+                throw new Exception(result.Message);
+        }
+
+        public void RefundPayment(string transactionId)
+        {
+            var result = _gateway.Transaction.Refund(transactionId);
+            
+            if (!result.IsSuccess())
+                throw new Exception(result.Message);
         }
     }
 }
