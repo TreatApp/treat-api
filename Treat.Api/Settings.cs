@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAzure;
+﻿using System.Configuration;
+using Microsoft.WindowsAzure;
 using Treat.Model;
 
 namespace Treat.Api
@@ -14,12 +15,12 @@ namespace Treat.Api
 
         public Settings()
         {
-            BraintreeEnvironment = CloudConfigurationManager.GetSetting("BraintreeEnvironment");
-            BraintreeMerchantId = CloudConfigurationManager.GetSetting("BraintreeMerchantId");
-            BraintreePublicKey = CloudConfigurationManager.GetSetting("BraintreePublicKey");
-            BraintreePrivateKey = CloudConfigurationManager.GetSetting("BraintreePrivateKey");
-            DbConnectionString = CloudConfigurationManager.GetSetting("DbConnectionString");
-            StorageConnectionString = CloudConfigurationManager.GetSetting("StorageConnectionString");
+            BraintreeEnvironment = ConfigurationManager.AppSettings["BraintreeEnvironment"];
+            BraintreeMerchantId = ConfigurationManager.AppSettings["BraintreeMerchantId"];
+            BraintreePublicKey = ConfigurationManager.AppSettings["BraintreePublicKey"];
+            BraintreePrivateKey = ConfigurationManager.AppSettings["BraintreePrivateKey"];
+            DbConnectionString = ConfigurationManager.ConnectionStrings["DbConnectionString"].ConnectionString;
+            StorageConnectionString = ConfigurationManager.ConnectionStrings["StorageConnectionString"].ConnectionString;
         }
     }
 }
