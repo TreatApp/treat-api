@@ -1,21 +1,12 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace Treat.Model
 {
     [DataContract]
-    [Table("Location")]
     public class Location
     {
-        public Location()
-        {
-            Events = new HashSet<Event>();
-        }
-
         [DataMember]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
         [Required]
@@ -40,8 +31,5 @@ namespace Treat.Model
         [Required]
         [DataMember]
         public decimal Longitude { get; set; }
-
-        public virtual ICollection<Event> Events { get; set; }
-
     }
 }

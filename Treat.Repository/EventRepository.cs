@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using Treat.Model;
@@ -19,11 +18,7 @@ namespace Treat.Repository
         {
             using (var db = new Database(_settings))
             {
-                var events = from e in GetEvents(db)
-                    where e.Start > DateTime.Now
-                    select e;
-
-                return events.ToList();
+                return db.Query<Event>("where Start > @0", DateTime.Now).ToList();
             }
         }
 
@@ -31,11 +26,7 @@ namespace Treat.Repository
         {
             using (var db = new Database(_settings))
             {
-                var events = from e in GetEvents(db)
-                             where e.UserId == userId || e.EventRequests.Any(r => r.UserId == userId)
-                             select e;
-
-                return events.ToList();
+                return db.Query<Event>("where UserId = @0", userId).ToList();
             }
         }
 
@@ -43,35 +34,31 @@ namespace Treat.Repository
         {
             using (var db = new Database(_settings))
             {
-                return GetEvents(db).FirstOrDefault(e => e.Id == id);
+                return db.SingleOrDefault<Event>("where Id = @0", id);
             }
-        }
-
-        private IQueryable<Event> GetEvents(Database db)
-        {
-            return db.Events
-                .Include(e => e.User)
-                .Include(e => e.Location)
-                .Include(e => e.Categories)
-                .Include(e => e.EventImages);
         }
 
         public void CreateEvent(Event @event)
         {
             using (var db = new Database(_settings))
+            using (var transaction = db.GetTransaction())
             {
-                var categoryIds = @event.Categories.Select(c => c.Id).ToList();
+                @event.SlotsAvailable = @event.Slots;
+                db.Insert(@event);
 
-                @event.Categories.Clear();
-                foreach (var category in db.Categories.Where(c => categoryIds.Contains(c.Id)))
+                foreach (var eventImage in @event.EventImages)
                 {
-                    @event.Categories.Add(category);
+                    eventImage.EventId = @event.Id;
+                    db.Insert(eventImage);
                 }
 
-                @event.SlotsAvailable = @event.Slots;
+                foreach (var category in @event.Categories)
+                {
+                    category.EventId = @event.Id;
+                    db.Insert(category);
+                }
 
-                db.Events.Add(@event);
-                db.SaveChanges();
+                transaction.Complete();
             }
         }
 
@@ -79,8 +66,7 @@ namespace Treat.Repository
         {
             using (var db = new Database(_settings))
             {
-                db.EventLogs.Add(eventLog);
-                db.SaveChanges();
+                db.Insert(eventLog);
             }
         }
 
@@ -88,44 +74,36 @@ namespace Treat.Repository
         {
             using (var db = new Database(_settings))
             {
-                db.EventRequests.Add(eventRequest);
-                db.SaveChanges();
+                db.Insert(eventRequest);
             }
         }
 
         public void UpdateEventRequest(EventRequest eventRequest)
         {
             using (var db = new Database(_settings))
+            using (var transaction = db.GetTransaction())
             {
-                var result = db.EventRequests.FirstOrDefault(e => e.EventId == eventRequest.EventId && e.UserId == eventRequest.UserId);
-                if (result != null)
-                {
-                    result.Status = eventRequest.Status;
+                db.Update<EventRequest>("set Status = @2 where EventId = @0 and UserId = @1", eventRequest.EventId, eventRequest.UserId, eventRequest.Status);
                     
-                    if (result.Status == EventRequestStatus.Approved)
-                        result.Event.SlotsAvailable -= 1;
+                if (eventRequest.Status == EventRequestStatus.Approved)
+                    db.Update<Event>("set SlotsAvailable = SlotsAvailable - 1 where Id = @0", eventRequest.EventId);
 
-                    else if (result.Status == EventRequestStatus.Cancelled)
-                        result.Event.SlotsAvailable += 1;
-                    
-                    db.SaveChanges();
-                }
+                else if (eventRequest.Status == EventRequestStatus.Cancelled)
+                    db.Update<Event>("set SlotsAvailable = SlotsAvailable + 1 where Id = @0", eventRequest.EventId);
+                
+                transaction.Complete();
             }
         }
 
         public void CreateEventRating(EventRating eventRating)
         {
             using (var db = new Database(_settings))
+            using (var transaction = db.GetTransaction())
             {
-                db.EventRatings.Add(eventRating);
-                db.SaveChanges();
-
-                var result = db.Events.FirstOrDefault(e => e.Id == eventRating.EventId);
-                if (result != null)
-                {
-                    result.Rating = Convert.ToDecimal(db.EventRatings.Where(e => e.EventId == eventRating.EventId).Average(e => e.Rating));
-                    db.SaveChanges();
-                }
+                db.Insert(eventRating);
+                var rating = Convert.ToDecimal(db.Query<EventRating>("where EventId = @0", eventRating.EventId).Average(r => r.Rating));
+                db.Update<Event>("set Rating = @1 where Id = @0", eventRating.EventId, rating);
+                transaction.Complete();
             }
         }
 
@@ -133,7 +111,7 @@ namespace Treat.Repository
         {
             using (var db = new Database(_settings))
             {
-                return db.Categories.ToList();
+                return db.Query<Category>(string.Empty).ToList();
             }
         }
 
@@ -141,7 +119,7 @@ namespace Treat.Repository
         {
             using (var db = new Database(_settings))
             {
-                return db.EventLogs.Include(e => e.User).Where(e => e.EventId == eventId).ToList();
+                return db.Query<EventLog>("where EventId = @0", eventId).ToList();
             }
         }
 
@@ -149,7 +127,7 @@ namespace Treat.Repository
         {
             using (var db = new Database(_settings))
             {
-                return db.EventRequests.Include(e => e.User).Where(e => e.EventId == eventId).ToList();
+                return db.Query<EventRequest>("where EventId = @0", eventId).ToList();
             }
         }
 
@@ -157,24 +135,8 @@ namespace Treat.Repository
         {
             using (var db = new Database(_settings))
             {
-                var result = db.Events.FirstOrDefault(e => e.Id == @event.Id);
-                if (result != null)
-                {
-                    var slotsTaken = result.Slots - result.SlotsAvailable;
-                    if (@event.Slots < slotsTaken)
-                        throw new ArgumentOutOfRangeException("Slots");
-
-                    result.Title = @event.Title;
-                    result.Description = @event.Description;
-                    result.Start = @event.Start;
-                    result.End = @event.End;
-                    result.Price = @event.Price;
-                    result.Slots = @event.Slots;
-                    result.SlotsAvailable = @event.Slots - slotsTaken;
-                    result.Location = @event.Location;
-                    result.Categories = @event.Categories;
-                    db.SaveChanges();
-                }
+                db.Update<Event>("set Title = @1, Description = @2, Start = @3, End = @4, Price = @5, Slots = @6 where Id = @0",
+                    @event.Id, @event.Title, @event.Description, @event.Start, @event.End, @event.Price, @event.Slots);
             }
         }
 
@@ -182,12 +144,7 @@ namespace Treat.Repository
         {
             using (var db = new Database(_settings))
             {
-                var result = db.Events.FirstOrDefault(e => e.Id == id);
-                if (result != null)
-                {
-                    db.Events.Remove(result);
-                    db.SaveChanges();   
-                }
+                db.Delete<Event>("where Id = @0", id);
             }
         }
     }

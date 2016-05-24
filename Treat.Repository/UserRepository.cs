@@ -18,7 +18,7 @@ namespace Treat.Repository
         {
             using (var db = new Database(_settings))
             {
-                return db.Users.FirstOrDefault(u => u.Id == id);
+                return db.SingleOrDefault<User>("where Id = @0", id);
             }
         }
 
@@ -26,7 +26,7 @@ namespace Treat.Repository
         {
             using (var db = new Database(_settings))
             {
-                return db.Users.FirstOrDefault(u => u.ExternalId == externalId);
+                return db.SingleOrDefault<User>("where ExternalId = @0", externalId);
             }
         }
 
@@ -34,8 +34,7 @@ namespace Treat.Repository
         {
             using (var db = new Database(_settings))
             {
-                db.Users.Add(user);
-                db.SaveChanges();
+                db.Insert(user);
             }
         }
 
@@ -43,29 +42,19 @@ namespace Treat.Repository
         {
             using (var db = new Database(_settings))
             {
-                var result = db.Users.FirstOrDefault(u => u.Id == user.Id);
-                if (result != null)
-                {
-                    result.Email = user.Email;
-                    result.Description = user.Description;
-                    db.SaveChanges();
-                }
+                db.Update<User>("set Email = @1, Description = @2 where Id = @0", user.Id, user.Email, user.Description);
             }
         }
 
         public void CreateUserRating(UserRating userRating)
         {
             using (var db = new Database(_settings))
+            using (var transaction = db.GetTransaction())
             {
-                db.UserRatings.Add(userRating);
-                db.SaveChanges();
-
-                var result = db.Users.FirstOrDefault(u => u.Id == userRating.UserId);
-                if (result != null)
-                {
-                    result.Rating = Convert.ToDecimal(db.UserRatings.Where(u => u.UserId == userRating.UserId).Average(e => e.Rating));
-                    db.SaveChanges();
-                }
+                db.Insert(userRating);
+                var rating = Convert.ToDecimal(db.Query<UserRating>("where UserId = @0", userRating.UserId).Average(r => r.Rating));
+                db.Update<User>("set Rating = @1 where Id = @0", userRating.UserId, rating);
+                transaction.Complete();
             }
         }
 
@@ -73,12 +62,7 @@ namespace Treat.Repository
         {
             using (var db = new Database(_settings))
             {
-                var result = db.Users.FirstOrDefault(u => u.Id == userId);
-                if (result != null)
-                {
-                    result.PaymentId = paymentId;
-                    db.SaveChanges();
-                }
+                db.Update<User>("set PaymentId = @1 where Id = @0", userId, paymentId);
             }
         }
 
@@ -86,7 +70,7 @@ namespace Treat.Repository
         {
             using (var db = new Database(_settings))
             {
-                return db.PaymentMethods.Where(u => u.UserId == userId).ToList();
+                return db.Query<PaymentMethod>("where UserId = @0", userId);
             }
         }
 
@@ -94,8 +78,7 @@ namespace Treat.Repository
         {
             using (var db = new Database(_settings))
             {
-                db.PaymentMethods.Add(paymentMethod);
-                db.SaveChanges();
+                db.Insert(paymentMethod);
             }
         }
 
@@ -103,12 +86,7 @@ namespace Treat.Repository
         {
             using (var db = new Database(_settings))
             {
-                var result = db.PaymentMethods.FirstOrDefault(p => p.Id == paymentMethod.Id);
-                if (result != null)
-                {
-                    result.ExternalId = paymentMethod.ExternalId;
-                    db.SaveChanges();
-                }
+                db.Update<PaymentMethod>("set ExternalId = @1 where Id = @0", paymentMethod.Id, paymentMethod.ExternalId);
             }
         }
 
@@ -116,12 +94,7 @@ namespace Treat.Repository
         {
             using (var db = new Database(_settings))
             {
-                var result = db.PaymentMethods.FirstOrDefault(u => u.Id == id);
-                if (result != null)
-                {
-                    db.PaymentMethods.Remove(result);
-                    db.SaveChanges();
-                }
+                db.Delete<PaymentMethod>("where Id = @0", id);
             }
         }
 
@@ -129,7 +102,7 @@ namespace Treat.Repository
         {
             using (var db = new Database(_settings))
             {
-                return db.BankAccounts.Where(u => u.UserId == userId).ToList();
+                return db.Query<BankAccount>("where UserId = @0", userId);
             }
         }
 
@@ -137,8 +110,7 @@ namespace Treat.Repository
         {
             using (var db = new Database(_settings))
             {
-                db.BankAccounts.Add(bankAccount);
-                db.SaveChanges();
+                db.Insert(bankAccount);
             }
         }
 
@@ -146,13 +118,7 @@ namespace Treat.Repository
         {
             using (var db = new Database(_settings))
             {
-                var result = db.BankAccounts.FirstOrDefault(p => p.Id == bankAccount.Id);
-                if (result != null)
-                {
-                    result.Name = bankAccount.Name;
-                    result.Number = bankAccount.Number;
-                    db.SaveChanges();
-                }
+                db.Update<BankAccount>("set Name = @1, Number = @2 where Id = @0", bankAccount.Id, bankAccount.Name, bankAccount.Number);
             }
         }
 
@@ -160,12 +126,7 @@ namespace Treat.Repository
         {
             using (var db = new Database(_settings))
             {
-                var result = db.BankAccounts.FirstOrDefault(u => u.Id == id);
-                if (result != null)
-                {
-                    db.BankAccounts.Remove(result);
-                    db.SaveChanges();
-                }
+                db.Delete<BankAccount>("where Id = @0", id);
             }
         }
     }

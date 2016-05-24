@@ -1,29 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace Treat.Model
 {
     [DataContract]
-    [Table("Event")]
     public class Event
     {
-        public Event()
-        {
-            Categories = new HashSet<Category>();
-            EventImages = new HashSet<EventImage>();
-            EventLogs = new HashSet<EventLog>();
-            EventRatings = new HashSet<EventRating>();
-            EventRequests = new HashSet<EventRequest>();
-            EventTransactions = new HashSet<EventTransaction>();
-        }
-
         [DataMember]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
+        [DataMember]
         public long UserId { get; set; }
 
         [Required]
@@ -47,16 +35,17 @@ namespace Treat.Model
         [DataMember]
         public decimal Price { get; set; }
         
+        [DataMember]
         public long LocationId { get; set; }
 
         [DataMember]
         public DateTime Created { get; set; }
 
         [DataMember]
-        public virtual User User { get; set; }
+        public User User { get; set; }
 
         [DataMember]
-        public virtual Location Location { get; set; }
+        public Location Location { get; set; }
 
         [DataMember]
         public decimal Rating { get; set; }
@@ -65,17 +54,9 @@ namespace Treat.Model
         public int SlotsAvailable { get; set; }
 
         [DataMember]
-        public virtual ICollection<Category> Categories { get; set; }
+        public IEnumerable<EventCategory> Categories { get; set; }
 
         [DataMember]
-        public virtual ICollection<EventImage> EventImages { get; set; }
-
-        public virtual ICollection<EventLog> EventLogs { get; set; }
-
-        public virtual ICollection<EventRating> EventRatings { get; set; }
-
-        public virtual ICollection<EventRequest> EventRequests { get; set; }
-
-        public virtual ICollection<EventTransaction> EventTransactions { get; set; }
+        public IEnumerable<EventImage> EventImages { get; set; }
     }
 }

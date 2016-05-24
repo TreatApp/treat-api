@@ -72,13 +72,13 @@ namespace Treat.Service.Tests
             };
         }
 
-        private static IList<Category> GetDummyCategories()
+        private static IList<EventCategory> GetDummyCategories()
         {
-            return new List<Category>
+            return new List<EventCategory>
             {
-                new Category { Name = "Italian" },
-                new Category { Name = "Traditional" },
-                new Category { Name = "Amateur" }
+                new EventCategory { CategoryId = 1 },
+                new EventCategory { CategoryId = 2 },
+                new EventCategory { CategoryId = 3 }
             };
         }
     }
