@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Transactions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Treat.Model;
 using Treat.Repository;
@@ -19,28 +19,26 @@ namespace Treat.Service.Tests
         }
 
         [TestMethod]
-        public void Should_get_user()
+        public void Create_read_and_update_user()
         {
-            var user = _userService.GetUser(7);
-            Assert.IsNotNull(user);
+            using (var transaction = new TransactionScope())
+            {
+                var user = GetDummyUser();
+
+                _userService.CreateUser(user);
+                Assert.AreNotEqual(user.Id, 0);
+
+                var newUser = _userService.GetUser(user.Id);
+                Assert.IsNotNull(newUser);
+
+                user.Description = "Updated description";
+                _userService.UpdateUser(user);
+
+                var updatedUser = _userService.GetUser(user.Id);
+                Assert.AreEqual(user.Description, updatedUser.Description);
+            }
         }
-
-        [TestMethod]
-        public void Should_create_user()
-        {
-            _userService.CreateUser(GetDummyUser());                
-        }
-
-        [TestMethod]
-        public void Should_update_user()
-        {
-            var user = _userService.GetUser(7);
-            Assert.IsNotNull(user);
-
-            user.ExternalId = DateTime.Now.Ticks.ToString();
-            _userService.UpdateUser(user);
-        }
-
+        
         private static User GetDummyUser()
         {
             return new User
