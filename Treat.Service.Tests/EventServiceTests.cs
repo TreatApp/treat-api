@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
-using System.Diagnostics;
+using System.Security.Principal;
+using System.Threading;
+using System.Transactions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Treat.Model;
 using Treat.Repository;
@@ -18,19 +19,32 @@ namespace Treat.Service.Tests
             var settings = new Settings();
             var eventRepository = new EventRepository(settings);
             _eventService = new EventService(eventRepository);
+
+            Thread.CurrentPrincipal = new GenericPrincipal(UserIdentity.Anonymous, null);
         }
 
         [TestMethod]
-        public void Should_get_events()
+        public void Get_events()
         {
             var events = _eventService.GetEvents();
             Assert.IsNotNull(events);
+
+            var userEvents = _eventService.GetUserEvents();
+            Assert.IsNotNull(userEvents);
+
+            var firstEvent = _eventService.GetEvent(events[0].Id);
+            Assert.IsNotNull(firstEvent);
         }
 
         [TestMethod]
-        public void Should_create_event()
+        public void Create_event()
         {
-            _eventService.CreateEvent(GetDummyEvent());                
+            using (var transaction = new TransactionScope())
+            {
+                var dummyEvent = GetDummyEvent();
+                _eventService.CreateEvent(dummyEvent);
+                Assert.AreNotEqual(dummyEvent.Id, 0);
+            }
         }
 
         private static Event GetDummyEvent()
@@ -72,13 +86,13 @@ namespace Treat.Service.Tests
             };
         }
 
-        private static IList<EventCategory> GetDummyCategories()
+        private static IList<Category> GetDummyCategories()
         {
-            return new List<EventCategory>
+            return new List<Category>
             {
-                new EventCategory { CategoryId = 1 },
-                new EventCategory { CategoryId = 2 },
-                new EventCategory { CategoryId = 3 }
+                new Category { Id = 1 },
+                new Category { Id = 2 },
+                new Category { Id = 3 }
             };
         }
     }

@@ -10,16 +10,18 @@ namespace Treat.Model
         {   
         }
 
-        public string ExternalId
-        {
-            get { return Name; }
-        }
+        public string ExternalId => Name;
 
         public User User { get; set; }
 
-        public static UserIdentity Current
+        public static UserIdentity Current => Thread.CurrentPrincipal.Identity as UserIdentity;
+
+        public static UserIdentity Anonymous => new UserIdentity(string.Empty)
         {
-            get { return Thread.CurrentPrincipal.Identity as UserIdentity; }
-        }
+            User = new User
+            {
+                Id = 1
+            }
+        };
     }
 }

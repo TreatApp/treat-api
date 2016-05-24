@@ -2,12 +2,19 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using PetaPoco;
 
 namespace Treat.Model
 {
     [DataContract]
     public class Event
     {
+        public Event()
+        {
+            Categories = new List<Category>();
+            Images = new List<EventImage>();
+        }
+
         [DataMember]
         public long Id { get; set; }
 
@@ -42,21 +49,25 @@ namespace Treat.Model
         public DateTime Created { get; set; }
 
         [DataMember]
-        public User User { get; set; }
-
-        [DataMember]
-        public Location Location { get; set; }
-
-        [DataMember]
         public decimal Rating { get; set; }
 
         [DataMember]
         public int SlotsAvailable { get; set; }
 
+        [Ignore]
         [DataMember]
-        public IEnumerable<EventCategory> Categories { get; set; }
+        public User User { get; set; }
 
+        [Ignore]
         [DataMember]
-        public IEnumerable<EventImage> EventImages { get; set; }
+        public Location Location { get; set; }
+
+        [Ignore]
+        [DataMember]
+        public IList<Category> Categories { get; set; }
+
+        [Ignore]
+        [DataMember]
+        public IList<EventImage> Images { get; set; }
     }
 }

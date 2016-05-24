@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Treat.Model;
+using Treat.Repository.Mappers;
 
 namespace Treat.Repository
 {
@@ -14,39 +15,50 @@ namespace Treat.Repository
             _settings = settings;
         }
 
+        private const string SelectEvents =
+            "select * from [Event] " +
+            "join [User] on [Event].UserId = [User].Id " +
+            "join [Location] on [Event].LocationId = [Location].Id " +
+            "left join [EventImage] on [Event].Id = [EventImage].EventId " +
+            "left join [EventCategory] on [Event].Id = [EventCategory].EventId " +
+            "left join [Category] on [EventCategory].CategoryId = [Category].Id ";
+
         public IList<Event> GetEvents()
         {
-            using (var db = new Database(_settings))
-            {
-                return db.Query<Event>("where Start > @0", DateTime.Now).ToList();
-            }
+            return GetEvents(SelectEvents + "where [Event].Start > @0", DateTime.Now).ToList();
         }
 
         public IList<Event> GetUserEvents(long userId)
         {
-            using (var db = new Database(_settings))
-            {
-                return db.Query<Event>("where UserId = @0", userId).ToList();
-            }
+            return GetEvents(SelectEvents + "where [Event].UserId = @0", userId).ToList();
         }
 
         public Event GetEvent(long id)
         {
+            return GetEvents(SelectEvents + "where [Event].Id = @0", id).FirstOrDefault();
+        }
+
+        private IEnumerable<Event> GetEvents(string sql, params object[] parameters)
+        {
             using (var db = new Database(_settings))
             {
-                return db.SingleOrDefault<Event>("where Id = @0", id);
+                var mapper = new EventMapper();
+                return db.Query<Event>(mapper.Types, mapper.Map, sql, parameters);
             }
-        }
+        } 
 
         public void CreateEvent(Event @event)
         {
             using (var db = new Database(_settings))
             using (var transaction = db.GetTransaction())
             {
+                db.Insert(@event.Location);
+
+                @event.LocationId = @event.Location.Id;
                 @event.SlotsAvailable = @event.Slots;
                 db.Insert(@event);
 
-                foreach (var eventImage in @event.EventImages)
+                foreach (var eventImage in @event.Images)
                 {
                     eventImage.EventId = @event.Id;
                     db.Insert(eventImage);
@@ -54,8 +66,11 @@ namespace Treat.Repository
 
                 foreach (var category in @event.Categories)
                 {
-                    category.EventId = @event.Id;
-                    db.Insert(category);
+                    db.Insert(new EventCategory
+                    {
+                        EventId = @event.Id,
+                        CategoryId = category.Id
+                    });
                 }
 
                 transaction.Complete();
