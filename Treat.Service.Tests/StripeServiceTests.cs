@@ -4,20 +4,20 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Treat.Service.Tests
 {
     [TestClass]
-    public class PaymentServiceTests
+    public class StripeServiceTests
     {
         private readonly IPaymentService _paymentService;
 
-        public PaymentServiceTests()
+        public StripeServiceTests()
         {
             var settings = new Settings();
-            _paymentService = new BraintreeService(settings);
+            _paymentService = new StripeService(settings);
         }
 
         [TestMethod]
         public void Should_create_customer()
         {
-            var customerId = _paymentService.CreateCustomer("Testkund", "Testsson");
+            var customerId = _paymentService.CreateCustomer("victor@stodell.se", "Victor Stodell", "348nifjn487w3");
             Trace.WriteLine("Created customer with id " + customerId);
             // Created customer with id 68146085
         }

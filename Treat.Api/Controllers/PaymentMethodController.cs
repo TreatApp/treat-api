@@ -30,7 +30,7 @@ namespace Treat.Api.Controllers
 
             if (user.PaymentId == null)
             {
-                user.PaymentId = _paymentService.CreateCustomer(user.FirstName, user.LastName);
+                user.PaymentId = _paymentService.CreateCustomer(user.Email, $"{user.FirstName} {user.LastName}", paymentMethod.ExternalId);
                 _userService.SetPaymentId(user.Id, user.PaymentId);
             }
 
